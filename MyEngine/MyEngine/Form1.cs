@@ -20,16 +20,16 @@ namespace MyEngine
         {
             new Enemys(),
             new Enemys(new Point(10,300),new Point(1, 488)),
-            new Enemys(new Point(100,200),new Point(100,250),true),
+            new Enemys(new Point(100,200),new Point(100,250),true,3),
             new Enemys(new Point(200,300),new Point(1, 488),true),
-            new Enemys(new Point(50,250),new Point(1, 488))
+            new Enemys(new Point(50,250),new Point(1, 488),3)
         }; public List<Enemys> starten = new List<Enemys>()
         {
             new Enemys(),
             new Enemys(new Point(10,300),new Point(1, 488)),
-            new Enemys(new Point(100,200),new Point(100,250),true),
+            new Enemys(new Point(100,200),new Point(100,250),true,3),
             new Enemys(new Point(200,300),new Point(1, 488),true),
-            new Enemys(new Point(50,250),new Point(1, 488))
+            new Enemys(new Point(50,250),new Point(1, 488),3)
         };
 
         public Point size3 = new Point(30,20);
@@ -44,7 +44,7 @@ namespace MyEngine
         public Form1()
         {
             InitializeComponent();
-            g = CreateGraphics();
+            
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint|
                 ControlStyles.UserPaint | 
@@ -63,7 +63,7 @@ namespace MyEngine
         Point click;
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
+            g = e.Graphics;
 
             // g.DrawRectangle(Pens.Red, 100, 100, 300, 200);
 
@@ -115,9 +115,9 @@ namespace MyEngine
         {
             new Enemys(),
             new Enemys(new Point(10,300),new Point(1, 488)),
-            new Enemys(new Point(100,200),new Point(100,250),true),
+            new Enemys(new Point(100,200),new Point(100,250),true,3),
             new Enemys(new Point(200,300),new Point(1, 488),true),
-            new Enemys(new Point(50,250),new Point(1, 488))
+            new Enemys(new Point(50,250),new Point(1, 488),3)
         };
 
             for (int i = 0;i<en.Count; i++) {
@@ -151,26 +151,26 @@ namespace MyEngine
                 {
 
 
-                    en[i].ellipsepos1.X += 1;
+                    en[i].ellipsepos1.X += en[i].speed;
                 }
                 if (en[i].rot)
                 {
 
 
-                    en[i].ellipsepos1.X -= 1;
-                }
+                    en[i].ellipsepos1.X -= en[i].speed;
+                    }
                 if (en[i].p3)
                        
                 {
 
 
-                    en[i].ellipsepos1.Y += 1;
-                }
+                    en[i].ellipsepos1.Y += en[i].speed;
+                    }
                     if (!en[i].p3)
                     {
 
 
-                        en[i].ellipsepos1.Y -= 1;
+                        en[i].ellipsepos1.Y -= en[i].speed;
                     }
                 }
                 
@@ -201,7 +201,7 @@ namespace MyEngine
         {
             click = e.Location;
 
-
+            timer3.Enabled = true;
             bool norm = true;
             if (!playerisdye)
             {
@@ -237,34 +237,34 @@ namespace MyEngine
                 switch (e.KeyCode)
                 {
                     case Keys.A:
-                        ellipsepos.X -= 2;
+                        ellipsepos.X -= 6;
                         break;
                     case Keys.D:
 
-                        ellipsepos.X += 2;
+                        ellipsepos.X += 6;
                         break;
                     case Keys.W:
 
-                        ellipsepos.Y -= 2;
+                        ellipsepos.Y -= 6;
                         break;
                     case Keys.S:
 
-                        ellipsepos.Y += 2;
+                        ellipsepos.Y += 6;
                         break;
                     case Keys.Left:
-                        ellipsepos.X -= 2;
+                        ellipsepos.X -= 6;
                         break;
                     case Keys.Right:
 
-                        ellipsepos.X += 2;
+                        ellipsepos.X += 6;
                         break;
                     case Keys.Up:
 
-                        ellipsepos.Y -= 2;
+                        ellipsepos.Y -= 6;
                         break;
                     case Keys.Down:
 
-                        ellipsepos.Y += 2;
+                        ellipsepos.Y += 6;
                         break;
 
 
@@ -287,14 +287,17 @@ namespace MyEngine
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            xp++;
+            if (!playerisdye)
+            {
+                xp++;
+            }
             if (bestxp < xp)
             {
                 bestxp = xp;
                 File.WriteAllText("bestxp",bestxp.ToString());
             }
-            label1.Text = "xp " + xp.ToString(); 
-            label2.Text = "bestxp " + bestxp.ToString();
+            label1.Text = "[xp] " + xp.ToString(); 
+            label2.Text = "[bestxp] " + bestxp.ToString();
             allDraws(sender);
         }
 
@@ -313,6 +316,7 @@ namespace MyEngine
 
         private void timer3_Tick(object sender, EventArgs e)
         {
+            Random r = new Random();
             for (int i = 0; i < en.Count; i++)
             {
                 Enemys s;
@@ -320,8 +324,8 @@ namespace MyEngine
                 {
                     s = en[i];
                     en.RemoveAt(i);
-                    en.Add(new Enemys(s.ellipsepos1, s.endstene1));
-                    en.Add(new Enemys(s.ellipsepos1, s.endstene1,true));
+                    en.Add(new Enemys(s.ellipsepos1, s.endstene1,r.Next(1,3)));
+                    en.Add(new Enemys(s.ellipsepos1, s.endstene1,true, r.Next(1, 3)));
                 }
             }
             if (playerisdye == true)
@@ -331,6 +335,7 @@ namespace MyEngine
                 xp = 0;
                 playerisdye = false;
             }
+            timer3.Enabled = false;
             
         }
 

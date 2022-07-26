@@ -13,16 +13,31 @@ namespace MyEngine
         public Point endstene = new Point(800, 0);
         public Point endstene1 = new Point(1, 488);
         public bool p3; public bool rot; public bool isdie;
+        public int speed =1;
         public Enemys(Point pos, Point posup)
         {
             ellipsepos1 = pos;
             endstene1 = posup;
         }
-        public Enemys(Point pos, Point posup,bool rot2)
+        public Enemys(Point pos, Point posup, bool rot2)
         {
             ellipsepos1 = pos;
             endstene1 = posup;
             rot = rot2;
+        }
+        public Enemys(Point pos, Point posup, bool rot2, int speed)
+        {
+            ellipsepos1 = pos;
+            endstene1 = posup;
+            rot = rot2;
+
+            this.speed = speed;
+        }
+        public Enemys(Point pos, Point posup,  int speed)
+        {
+            ellipsepos1 = pos;
+            endstene1 = posup;
+            this.speed = speed;
         }
         public Enemys()
         {
