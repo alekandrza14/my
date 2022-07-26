@@ -8,7 +8,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using MyEngine.Properties;
 
 namespace MyEngine
 {
@@ -16,7 +16,14 @@ namespace MyEngine
     {
         public Point ellipsepos = new Point(100, 100);
         public Point startpos = new Point(100, 100);
-        public Enemys[] en = new Enemys[]
+        public List<Enemys> en = new List<Enemys>()
+        {
+            new Enemys(),
+            new Enemys(new Point(10,300),new Point(1, 488)),
+            new Enemys(new Point(100,200),new Point(100,250),true),
+            new Enemys(new Point(200,300),new Point(1, 488),true),
+            new Enemys(new Point(50,250),new Point(1, 488))
+        }; public List<Enemys> starten = new List<Enemys>()
         {
             new Enemys(),
             new Enemys(new Point(10,300),new Point(1, 488)),
@@ -24,42 +31,101 @@ namespace MyEngine
             new Enemys(new Point(200,300),new Point(1, 488),true),
             new Enemys(new Point(50,250),new Point(1, 488))
         };
+
+        public Point size3 = new Point(30,20);
         public int xp; public int bestxp;
+        public Bitmap pipis = Resources.pipis;
+        public Bitmap pipis1 = Resources.pipis1;
+        public Bitmap pipis2 = Resources.pipis2;
+        public Bitmap pipis3 = Resources.pipis3;
+        public bool playerisdye;
+
 
         public Form1()
         {
             InitializeComponent();
+            g = CreateGraphics();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint|
+                ControlStyles.UserPaint | 
+                ControlStyles.ResizeRedraw | 
+                ControlStyles.UserMouse | 
+                ControlStyles.FixedHeight | 
+                ControlStyles.FixedWidth, true);
+            UpdateStyles();
+            
+            if (File.Exists("bestxp"))
+            {
+                bestxp = int.Parse(File.ReadAllText("bestxp"));
+            }
         }
         Graphics g;
         Point click;
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if (File.Exists("bestxp")){
-                bestxp = int.Parse(File.ReadAllText("bestxp"));
-            }
+
 
             // g.DrawRectangle(Pens.Red, 100, 100, 300, 200);
 
+            
 
-
-
-
+            drawpp2(sender, ellipsepos,true,0); for (int i = 0; i < en.Count; i++)
+            {
+                drawpp2(sender, en[i].ellipsepos1, false,i);
+            }
         }
-       
-        public void drawpp2(object sender,Point newpos)
+
+        public void drawpp2(object sender,Point newpos,bool isp,int pp)
         {
-            g.DrawEllipse(Pens.Red, newpos.X, newpos.Y, 30, 20);
-            g.FillEllipse(Brushes.Aqua, newpos.X, newpos.Y, 30, 20);
+
+            Rectangle r = new Rectangle(newpos.X, newpos.Y, 30, 20);
+            
+                if (!en[pp].isdie)
+                {
+
+
+                    g.DrawImage(pipis, r);
+                }
+                if (en[pp].isdie)
+                {
+
+
+                    g.DrawImage(pipis1, r);
+                }
+            
+            if (isp)
+            {
+                if (!playerisdye)
+                {
+
+                    g.DrawImage(pipis2, r);
+                }
+                if (playerisdye)
+                {
+
+                    g.DrawImage(pipis3, r);
+                }
+            }
+           
         }
         public void allDraws(object sender)
         {
-            g = CreateGraphics();
-            g.Clear(Color.Black);
-            for (int i = 0;i<en.Length;i++) {
-                if (ellipsepos.X > en[i].ellipsepos1.X - 30 && ellipsepos.Y > en[i].ellipsepos1.Y - 30 && ellipsepos.X < en[i].ellipsepos1.X + 30 && ellipsepos.Y < en[i].ellipsepos1.Y + 30)
+
+            starten = new List<Enemys>()
+        {
+            new Enemys(),
+            new Enemys(new Point(10,300),new Point(1, 488)),
+            new Enemys(new Point(100,200),new Point(100,250),true),
+            new Enemys(new Point(200,300),new Point(1, 488),true),
+            new Enemys(new Point(50,250),new Point(1, 488))
+        };
+
+            for (int i = 0;i<en.Count; i++) {
+                if (ellipsepos.X > en[i].ellipsepos1.X - size3.X && ellipsepos.Y > en[i].ellipsepos1.Y - size3.Y && ellipsepos.X < en[i].ellipsepos1.X + size3.X && ellipsepos.Y < en[i].ellipsepos1.Y + size3.Y)
                 {
-                    ellipsepos = startpos;
-                    xp = 0;
+                    playerisdye = true;
+                    
+                    return;
                 }
                 if (en[i].ellipsepos1.X > en[i].endstene.X)
                 {
@@ -77,6 +143,10 @@ namespace MyEngine
                 {
                     en[i].p3 = true;
                 }
+                if (!en[i].isdie)
+                {
+
+                
                 if (!en[i].rot)
                 {
 
@@ -96,13 +166,14 @@ namespace MyEngine
 
                     en[i].ellipsepos1.Y += 1;
                 }
-                if (!en[i].p3)
-                {
+                    if (!en[i].p3)
+                    {
 
 
-                    en[i].ellipsepos1.Y -= 1;
+                        en[i].ellipsepos1.Y -= 1;
+                    }
                 }
-                drawpp2(sender, en[i].ellipsepos1);
+                
             }
             if (ellipsepos.X > 815)
             {
@@ -120,7 +191,7 @@ namespace MyEngine
             {
                 ellipsepos.Y = 488;
             }
-            drawpp2(sender, ellipsepos);
+            
 
             
             
@@ -129,58 +200,81 @@ namespace MyEngine
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             click = e.Location;
-            
-           
 
-            ellipsepos = click;
-            
 
+            bool norm = true;
+            if (!playerisdye)
+            {
+                for (int i = 0; i < en.Count; i++)
+                {
+                    if (click.X > en[i].ellipsepos1.X - size3.X && click.Y > en[i].ellipsepos1.Y - size3.Y && click.X < en[i].ellipsepos1.X + size3.X && click.Y < en[i].ellipsepos1.Y + size3.Y)
+                    {
+                        en[i].isdie = true;
+                        norm = false;
+                        xp += 500;
+                    }
+
+
+
+                }
+                if (norm)
+                {
+                    ellipsepos = center(click);
+                }
+            }
 
         }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        public Point center(Point click)
         {
-            
-            switch (e.KeyCode)
+            click.X -= size3.X / 2;
+            click.Y -= size3.Y / 2;
+            return click;
+        }
+            private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!playerisdye)
             {
-                case Keys.A:
-                    ellipsepos.X -= 2;
-                    break;
-                case Keys.D:
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        ellipsepos.X -= 2;
+                        break;
+                    case Keys.D:
 
-                    ellipsepos.X += 2;
-                    break;
-                case Keys.W:
+                        ellipsepos.X += 2;
+                        break;
+                    case Keys.W:
 
-                    ellipsepos.Y -= 2;
-                    break;
-                case Keys.S:
+                        ellipsepos.Y -= 2;
+                        break;
+                    case Keys.S:
 
-                    ellipsepos.Y += 2;
-                    break;
-                case Keys.Left:
-                    ellipsepos.X -= 2;
-                    break;
-                case Keys.Right:
+                        ellipsepos.Y += 2;
+                        break;
+                    case Keys.Left:
+                        ellipsepos.X -= 2;
+                        break;
+                    case Keys.Right:
 
-                    ellipsepos.X += 2;
-                    break;
-                case Keys.Up:
+                        ellipsepos.X += 2;
+                        break;
+                    case Keys.Up:
 
-                    ellipsepos.Y -= 2;
-                    break;
-                case Keys.Down:
+                        ellipsepos.Y -= 2;
+                        break;
+                    case Keys.Down:
 
-                    ellipsepos.Y += 2;
-                    break;
-                
+                        ellipsepos.Y += 2;
+                        break;
 
-                case Keys.Escape:
 
-                    
-                    Application.Exit();
+                    case Keys.Escape:
 
-                    break;
+
+                        Application.Exit();
+
+                        break;
+                }
             }
             
             
@@ -202,7 +296,6 @@ namespace MyEngine
             label1.Text = "xp " + xp.ToString(); 
             label2.Text = "bestxp " + bestxp.ToString();
             allDraws(sender);
-            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -210,7 +303,38 @@ namespace MyEngine
 
         }
 
-        
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            Random r = new Random();
+
+           Location =new Point(r.Next(-1, 2) + Location.X, r.Next(-1, 2) + Location.Y);
+            Refresh();
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < en.Count; i++)
+            {
+                Enemys s;
+                if (en[i].isdie)
+                {
+                    s = en[i];
+                    en.RemoveAt(i);
+                    en.Add(new Enemys(s.ellipsepos1, s.endstene1));
+                    en.Add(new Enemys(s.ellipsepos1, s.endstene1,true));
+                }
+            }
+            if (playerisdye == true)
+            {
+                en = starten;
+                ellipsepos = startpos;
+                xp = 0;
+                playerisdye = false;
+            }
+            
+        }
+
+       
     }
     public class onclear
     {

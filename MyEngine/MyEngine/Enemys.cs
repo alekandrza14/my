@@ -12,7 +12,7 @@ namespace MyEngine
         public Point ellipsepos1 = new Point(200, 200);
         public Point endstene = new Point(800, 0);
         public Point endstene1 = new Point(1, 488);
-        public bool p3; public bool rot;
+        public bool p3; public bool rot; public bool isdie;
         public Enemys(Point pos, Point posup)
         {
             ellipsepos1 = pos;
