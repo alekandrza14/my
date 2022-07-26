@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,10 +19,13 @@ namespace MyEngine
         public Enemys[] en = new Enemys[]
         {
             new Enemys(),
-            new Enemys(new Point(10,300),new Point(200,300)),
+            new Enemys(new Point(10,300),new Point(1, 488)),
             new Enemys(new Point(100,200),new Point(100,250),true),
-            new Enemys(new Point(50,250),new Point(150,300))
+            new Enemys(new Point(200,300),new Point(1, 488),true),
+            new Enemys(new Point(50,250),new Point(1, 488))
         };
+        public int xp; public int bestxp;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,12 +34,13 @@ namespace MyEngine
         Point click;
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            g = CreateGraphics();
-            g.Clear(Color.Black);
+            if (File.Exists("bestxp")){
+                bestxp = int.Parse(File.ReadAllText("bestxp"));
+            }
 
             // g.DrawRectangle(Pens.Red, 100, 100, 300, 200);
 
-            allDraws(sender);
+
 
 
 
@@ -48,10 +53,13 @@ namespace MyEngine
         }
         public void allDraws(object sender)
         {
+            g = CreateGraphics();
+            g.Clear(Color.Black);
             for (int i = 0;i<en.Length;i++) {
                 if (ellipsepos.X > en[i].ellipsepos1.X - 30 && ellipsepos.Y > en[i].ellipsepos1.Y - 30 && ellipsepos.X < en[i].ellipsepos1.X + 30 && ellipsepos.Y < en[i].ellipsepos1.Y + 30)
                 {
                     ellipsepos = startpos;
+                    xp = 0;
                 }
                 if (en[i].ellipsepos1.X > en[i].endstene.X)
                 {
@@ -113,27 +121,26 @@ namespace MyEngine
                 ellipsepos.Y = 488;
             }
             drawpp2(sender, ellipsepos);
-           
-            
 
+            
+            
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             click = e.Location;
             
-            g.Clear(Color.Black);
+           
 
             ellipsepos = click;
-            allDraws(sender);
+            
 
 
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            g = CreateGraphics();
-            g.Clear(Color.Black);
+            
             switch (e.KeyCode)
             {
                 case Keys.A:
@@ -151,9 +158,56 @@ namespace MyEngine
 
                     ellipsepos.Y += 2;
                     break;
-            }
+                case Keys.Left:
+                    ellipsepos.X -= 2;
+                    break;
+                case Keys.Right:
 
+                    ellipsepos.X += 2;
+                    break;
+                case Keys.Up:
+
+                    ellipsepos.Y -= 2;
+                    break;
+                case Keys.Down:
+
+                    ellipsepos.Y += 2;
+                    break;
+                
+
+                case Keys.Escape:
+
+                    
+                    Application.Exit();
+
+                    break;
+            }
+            
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            xp++;
+            if (bestxp < xp)
+            {
+                bestxp = xp;
+                File.WriteAllText("bestxp",bestxp.ToString());
+            }
+            label1.Text = "xp " + xp.ToString(); 
+            label2.Text = "bestxp " + bestxp.ToString();
             allDraws(sender);
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         
