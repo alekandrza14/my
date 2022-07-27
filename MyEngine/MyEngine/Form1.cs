@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +8,10 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyEngine.Properties;
+using SharpGL;
+using SharpGL.SceneGraph;
+
+
 
 namespace MyEngine
 {
@@ -23,17 +26,28 @@ namespace MyEngine
 
 
         public Point size3 = new Point(30, 20);
+        
         public int x; public int y;
         public Bitmap pipis = Resources.pipis;
         public Bitmap pipis1 = Resources.pipis1;
         public Bitmap pipis2 = Resources.pipis2;
         public Bitmap pipis3 = Resources.pipis3;
         public bool playerisdye;
+        Component1 c = new Component1();
         GameObject[] g1;
         public Point s;
         public bool tr;
-        Component1 c = new Component1();
         public int e1;
+        public Vectorinf vi = new Vectorinf(new float[3]
+        {
+            0,0,0
+        }); public Vectorinf vip = new Vectorinf(new float[3]
+        {
+            0,0,0
+        });
+
+        public float rtri;
+        public float rquad;
         
         bool norm = false;
         List<Enemys> eny(GameObject[] g3)
@@ -45,12 +59,12 @@ namespace MyEngine
             }
             return t;
         }
+        
 
         public Form1()
         {
 
-
-
+         
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
@@ -69,18 +83,20 @@ namespace MyEngine
 
         Graphics g;
         Point click;
+        
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            
             g = e.Graphics;
             g1 = c.initAllEnemyes(en);
             // g.DrawRectangle(Pens.Red, 100, 100, 300, 200);
 
 
-
+            /*
             for (int i = 0; i < en.Count; i++)
             {
                 drawpp2(sender, en[i].ellipsepos1, false, i);
-            }
+            }*/
         }
 
         public void drawpp2(object sender, Point newpos, bool isp, int pp)
@@ -105,7 +121,7 @@ namespace MyEngine
 
         }
         public void allDraws(object sender)
-        {
+        {/*
             g1 = c.initAllEnemyes(en);
 
             s = new Point(Size.Width, Size.Height);
@@ -165,7 +181,7 @@ namespace MyEngine
             }
 
 
-
+            */
 
 
 
@@ -216,91 +232,9 @@ namespace MyEngine
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!playerisdye)
-            {
-                switch (e.KeyCode)
-                {
-
-
-
-                    case Keys.Escape:
-
-
-                        Application.Exit();
-
-                        break;
-                    case Keys.C:
-
-
-                        createpipis();
-
-                        break;
-                    case Keys.X:
-
-
-                        tr = !tr;
-
-                        break;
-                    case Keys.Delete:
-
-
-                        if (norm)
-                        {
-                            en[e1].isdie = true;
-                            norm = false;
-                        }
-
-                        break;
-                    case Keys.Back:
-
-
-                        if (norm)
-                        {
-                            en[e1].isdel = true;
-
-                            norm = false;
-                        }
-
-                        break;
-                    case Keys.F1:
-                        Enemys s2;
-                        Random r = new Random();
-                        if (norm)
-                        {
-                            s2 = en[e1];
-                            en[e1] = new Enemys(s2.ellipsepos1, s2.endstene1, r.Next(1, 3));
-
-                            norm = false;
-                        }
-
-                        break;
-                    case Keys.F2:
-
-                        Random r2 = new Random();
-                        if (norm)
-                        {
-                            s2 = en[e1];
-                            en[e1] = new Enemys(s2.ellipsepos1, s2.endstene1,true, r2.Next(1, 3));
-
-                            norm = false;
-                        }
-
-                        break;
-                    case Keys.Up:
-
-
-                        killall();
-
-                        break;
-                    case Keys.Down:
-
-
-                        Delall();
-
-                        break;
-
-                }
-            }
+            
+               
+            
 
 
         }
@@ -395,6 +329,179 @@ namespace MyEngine
         private void label4_Click(object sender, EventArgs e)
         {
             tr = !tr;
+        }
+
+        private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
+        {
+            OpenGL gl = this.openGLControl1.OpenGL;
+            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT|OpenGL.GL_DEPTH_BUFFER_BIT);
+            /*
+            gl.LoadIdentity();
+            
+            gl.Translate(1.5f,0f,-6.0f);
+
+            gl.Rotate(rtri,0f,1f,0f);
+
+            gl.Begin(OpenGL.GL_TRIANGLES);
+
+            gl.Color(1f, 0f, 0f);//1
+            gl.Vertex(0f, 1f, 0f);
+            gl.Color(0f, 1f, 0f);//2
+            gl.Vertex(-1f, -1f, 1f);
+            gl.Color(0f, 0f, 1f);//3
+            gl.Vertex(1f, -1f, 1f);
+
+            gl.Color(1f, 0f, 0f);//1
+            gl.Vertex(0f, 1f, 0f);
+            gl.Color(0f, 1f, 0f);//2
+            gl.Vertex(1f, -1f, 1f);
+            gl.Color(0f, 0f, 1f);//3
+            gl.Vertex(1f, -1f, -1f);
+
+            gl.Color(1f, 0f, 0f);//1
+            gl.Vertex(0f, 1f, 0f);
+            gl.Color(0f, 1f, 0f);//2
+            gl.Vertex(1f, -1f, -1f);
+            gl.Color(0f, 0f, 1f);//3
+            gl.Vertex(-1f, -1f, -1f);
+
+            gl.Color(1f, 0f, 0f);//1
+            gl.Vertex(0f, 1f, 0f);
+            gl.Color(0f, 1f, 0f);//2
+            gl.Vertex(-1f, -1f, -1f);
+            gl.Color(0f, 0f, 1f);//3
+            gl.Vertex(-1f, -1f, 1f);
+
+            gl.End();
+            */
+            gl.LoadIdentity();
+
+            
+            gl.Translate(0f+vip.pos[0], 0f + vip.pos[1], -7.0f + vip.pos[2]);
+
+            gl.Rotate(vi.pos[1], 0, 1, 0);
+            gl.Rotate(vi.pos[0], 1, 0, 0);
+            gl.Begin(OpenGL.GL_QUADS);
+
+            gl.Color(1f, 1f, 1f);
+
+            gl.Vertex(1, 1, -1); //1
+            gl.Vertex(-1, 1, -1);
+            gl.Vertex(-1, 1, 1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(1, 1, 1);
+
+
+            gl.Color(1f, 0f, 0f);
+            gl.Vertex(1, -1, 1);//2
+            gl.Vertex(-1, -1, 1);
+            gl.Vertex(-1, -1, -1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(1, -1, -1);
+
+
+            gl.Color(1f, 1f, 1f);
+            gl.Vertex(1, 1, 1);//3
+            gl.Vertex(-1, 1, 1);
+            gl.Vertex(-1, -1, 1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(1, -1, 1);
+
+
+            gl.Color(1f, 0f, 0f);
+            gl.Vertex(1, -1, -1);//4
+            gl.Vertex(-1, -1, -1);
+            gl.Vertex(-1, 1, -1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(1, 1, -1);
+
+
+            gl.Color(1f, 1f, 1f);
+            gl.Vertex(-1, 1, 1);//5
+            gl.Vertex(-1, 1, -1);
+            gl.Vertex(-1, -1, -1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(-1,-1, 1);
+
+
+            gl.Color(1f, 0f, 0f);
+            gl.Vertex(1, 1, -1);//6
+            gl.Vertex(1, 1, 1);
+            gl.Vertex(1, -1, 1);
+
+            gl.Color(0f, 0f, 0f);
+            gl.Vertex(1, -1, -1);
+
+            gl.End();
+
+            gl.Flush();
+
+            rtri += 3.0f;
+            rquad += 3.0f;
+        }
+
+        private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+
+
+
+                case Keys.Escape:
+
+
+                    Application.Exit();
+
+                    break;
+
+
+
+
+
+                case Keys.W:
+
+
+                    vip.pos[2] += 0.1f;
+
+                    break;
+                case Keys.S:
+                    vip.pos[2] -= 0.1f;
+
+
+
+                    break;
+                case Keys.A:
+
+
+                    vi.pos[1] += 3;
+
+                    break;
+                case Keys.D:
+                    vi.pos[1] -= 3;
+
+
+
+                    break;
+                case Keys.Z:
+
+
+                    vi.pos[0] += 3;
+
+                    break;
+                case Keys.X:
+                    vi.pos[0] -= 3;
+
+
+
+                    break;
+
+
+            }
         }
     }
     public class onclear

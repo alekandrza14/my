@@ -1,4 +1,5 @@
 ﻿
+
 namespace MyEngine
 {
     partial class Form1
@@ -38,6 +39,8 @@ namespace MyEngine
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.openGLControl1 = new SharpGL.OpenGLControl();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -84,7 +87,7 @@ namespace MyEngine
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(739, 416);
+            this.label3.Location = new System.Drawing.Point(15, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 16);
             this.label3.TabIndex = 2;
@@ -94,24 +97,42 @@ namespace MyEngine
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(739, 390);
+            this.label4.Location = new System.Drawing.Point(14, 92);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "random";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // openGLControl1
+            // 
+            this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.openGLControl1.DrawFPS = false;
+            this.openGLControl1.FrameRate = 30;
+            this.openGLControl1.Location = new System.Drawing.Point(79, 0);
+            this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.openGLControl1.Name = "openGLControl1";
+            this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
+            this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
+            this.openGLControl1.Size = new System.Drawing.Size(725, 441);
+            this.openGLControl1.TabIndex = 4;
+            this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
+            this.openGLControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLControl1_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.MintCream;
+            this.BackColor = System.Drawing.Color.Ivory;
             this.BackgroundImage = global::MyEngine.Properties.Resources.hah;
             this.ClientSize = new System.Drawing.Size(804, 441);
+            this.Controls.Add(this.openGLControl1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("MV Boli", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -121,6 +142,7 @@ namespace MyEngine
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +157,7 @@ namespace MyEngine
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private SharpGL.OpenGLControl openGLControl1;
     }
 }
 
