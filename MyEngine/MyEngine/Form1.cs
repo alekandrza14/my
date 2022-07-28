@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using MyEngine.Properties;
 using SharpGL;
 using SharpGL.SceneGraph;
-
-
+using SharpGL.SceneGraph.Assets;
 
 namespace MyEngine
 {
@@ -32,6 +31,7 @@ namespace MyEngine
         public Bitmap pipis1 = Resources.pipis1;
         public Bitmap pipis2 = Resources.pipis2;
         public Bitmap pipis3 = Resources.pipis3;
+        public Texture текстура = new Texture();
         public bool playerisdye;
         Component1 c = new Component1();
         GameObject[] g1;
@@ -45,6 +45,7 @@ namespace MyEngine
         {
             0,0,0
         });
+        
 
         public float rtri;
         public float rquad;
@@ -76,6 +77,12 @@ namespace MyEngine
                 ControlStyles.FixedWidth, true);
             UpdateStyles();
 
+            OpenGL gl = this.openGLControl1.OpenGL;
+
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+
+            текстура.Create(gl, Resources.песок_42_3);
+            
 
 
         }
@@ -260,45 +267,14 @@ namespace MyEngine
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-           var p = PointToClient(Cursor.Position);
-            x = p.X - size3.X/2; y = p.Y - size3.Y / 2;
-            label1.Text = "[x] " + x.ToString(); 
-            label2.Text = "[y] " + y.ToString();
-            allDraws(sender);
-            s = new Point(Size.Width, Size.Height);
-        }
+        
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            Random r = new Random(); if (norm) {
-                en[e1].ellipsepos1.X = x;
-                en[e1].ellipsepos1.Y = y;
-            }
-            if (tr)
-            {
-                Location = new Point(r.Next(-1, 2) + Location.X, r.Next(-1, 2) + Location.Y);
-            }
-            for (int i = 0; i < en.Count; i++)
-            {
-                g1 = c.initAllEnemyes(en);
-                Enemys s;
-                if (en[i].isdel)
-                {
-                    s = en[i];
-                    en.RemoveAt(i);
-                }
-            }
-            Refresh();
-            label3.Location = new Point(s.X - 70, s.Y - 70);
-            label4.Location = new Point(s.X - 70, s.Y - 90);
-        }
+        
 
         private void timer3_Tick(object sender, EventArgs e)
         {
@@ -334,108 +310,101 @@ namespace MyEngine
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
             OpenGL gl = this.openGLControl1.OpenGL;
-            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT|OpenGL.GL_DEPTH_BUFFER_BIT);
-            /*
+            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+            {
+                /*
+                gl.LoadIdentity();
+
+                gl.Translate(1.5f,0f,-6.0f);
+
+                gl.Rotate(rtri,0f,1f,0f);
+
+                gl.Begin(OpenGL.GL_TRIANGLES);
+
+                gl.Color(1f, 0f, 0f);//1
+                gl.Vertex(0f, 1f, 0f);
+                gl.Color(0f, 1f, 0f);//2
+                gl.Vertex(-1f, -1f, 1f);
+                gl.Color(0f, 0f, 1f);//3
+                gl.Vertex(1f, -1f, 1f);
+
+                gl.Color(1f, 0f, 0f);//1
+                gl.Vertex(0f, 1f, 0f);
+                gl.Color(0f, 1f, 0f);//2
+                gl.Vertex(1f, -1f, 1f);
+                gl.Color(0f, 0f, 1f);//3
+                gl.Vertex(1f, -1f, -1f);
+
+                gl.Color(1f, 0f, 0f);//1
+                gl.Vertex(0f, 1f, 0f);
+                gl.Color(0f, 1f, 0f);//2
+                gl.Vertex(1f, -1f, -1f);
+                gl.Color(0f, 0f, 1f);//3
+                gl.Vertex(-1f, -1f, -1f);
+
+                gl.Color(1f, 0f, 0f);//1
+                gl.Vertex(0f, 1f, 0f);
+                gl.Color(0f, 1f, 0f);//2
+                gl.Vertex(-1f, -1f, -1f);
+                gl.Color(0f, 0f, 1f);//3
+                gl.Vertex(-1f, -1f, 1f);
+
+                gl.End();
+                */
+            }
             gl.LoadIdentity();
-            
-            gl.Translate(1.5f,0f,-6.0f);
-
-            gl.Rotate(rtri,0f,1f,0f);
-
-            gl.Begin(OpenGL.GL_TRIANGLES);
-
-            gl.Color(1f, 0f, 0f);//1
-            gl.Vertex(0f, 1f, 0f);
-            gl.Color(0f, 1f, 0f);//2
-            gl.Vertex(-1f, -1f, 1f);
-            gl.Color(0f, 0f, 1f);//3
-            gl.Vertex(1f, -1f, 1f);
-
-            gl.Color(1f, 0f, 0f);//1
-            gl.Vertex(0f, 1f, 0f);
-            gl.Color(0f, 1f, 0f);//2
-            gl.Vertex(1f, -1f, 1f);
-            gl.Color(0f, 0f, 1f);//3
-            gl.Vertex(1f, -1f, -1f);
-
-            gl.Color(1f, 0f, 0f);//1
-            gl.Vertex(0f, 1f, 0f);
-            gl.Color(0f, 1f, 0f);//2
-            gl.Vertex(1f, -1f, -1f);
-            gl.Color(0f, 0f, 1f);//3
-            gl.Vertex(-1f, -1f, -1f);
-
-            gl.Color(1f, 0f, 0f);//1
-            gl.Vertex(0f, 1f, 0f);
-            gl.Color(0f, 1f, 0f);//2
-            gl.Vertex(-1f, -1f, -1f);
-            gl.Color(0f, 0f, 1f);//3
-            gl.Vertex(-1f, -1f, 1f);
-
-            gl.End();
-            */
-            gl.LoadIdentity();
 
             
+
             gl.Translate(0f+vip.pos[0], 0f + vip.pos[1], -7.0f + vip.pos[2]);
 
             gl.Rotate(vi.pos[1], 0, 1, 0);
             gl.Rotate(vi.pos[0], 1, 0, 0);
+            gl.Rotate(vi.pos[2], 0, 0, 1);
+            текстура.Bind(gl);
             gl.Begin(OpenGL.GL_QUADS);
 
-            gl.Color(1f, 1f, 1f);
-
-            gl.Vertex(1, 1, -1); //1
-            gl.Vertex(-1, 1, -1);
-            gl.Vertex(-1, 1, 1);
-
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(1, 1, 1);
-
-
-            gl.Color(1f, 0f, 0f);
-            gl.Vertex(1, -1, 1);//2
-            gl.Vertex(-1, -1, 1);
-            gl.Vertex(-1, -1, -1);
-
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(1, -1, -1);
-
 
             gl.Color(1f, 1f, 1f);
-            gl.Vertex(1, 1, 1);//3
-            gl.Vertex(-1, 1, 1);
-            gl.Vertex(-1, -1, 1);
-
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(1, -1, 1);
+            gl.TexCoord(0, 0); gl.Vertex(1, 1, -1);//1
+            gl.TexCoord(0, 1); gl.Vertex(-1, 1, -1);
+            gl.TexCoord(1, 0); gl.Vertex(-1, 1, 1);
+            gl.TexCoord(1, 1); gl.Vertex(1, 1, 1);
 
 
-            gl.Color(1f, 0f, 0f);
-            gl.Vertex(1, -1, -1);//4
-            gl.Vertex(-1, -1, -1);
-            gl.Vertex(-1, 1, -1);
 
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(1, 1, -1);
+            gl.TexCoord(0, 1); gl.Vertex(1, -1, 1);//2
+         gl.TexCoord(1, 0);   gl.Vertex(-1, -1, 1);
+         gl.TexCoord(1, 1);   gl.Vertex(-1, -1, -1);
+         gl.TexCoord(0, 0);   gl.Vertex(1, -1, -1);
 
 
-            gl.Color(1f, 1f, 1f);
-            gl.Vertex(-1, 1, 1);//5
-            gl.Vertex(-1, 1, -1);
-            gl.Vertex(-1, -1, -1);
 
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(-1,-1, 1);
+            gl.TexCoord(0, 0); gl.Vertex(1, 1, 1);//3
+          gl.TexCoord(1, 1);  gl.Vertex(-1, 1, 1);
+          gl.TexCoord(1, 0);  gl.Vertex(-1, -1, 1);
+          gl.TexCoord(0, 1);  gl.Vertex(1, -1, 1);
 
 
-            gl.Color(1f, 0f, 0f);
-            gl.Vertex(1, 1, -1);//6
-            gl.Vertex(1, 1, 1);
-            gl.Vertex(1, -1, 1);
 
-            gl.Color(0f, 0f, 0f);
-            gl.Vertex(1, -1, -1);
+            gl.TexCoord(0, 0); gl.Vertex(1, -1, -1);//4
+          gl.TexCoord(1, 1);  gl.Vertex(-1, -1, -1);
+          gl.TexCoord(1, 0);  gl.Vertex(-1, 1, -1);
+          gl.TexCoord(0, 1);  gl.Vertex(1, 1, -1);
+
+
+
+            gl.TexCoord(0, 0); gl.Vertex(-1, 1, 1);//5
+          gl.TexCoord(1, 1);  gl.Vertex(-1, 1, -1);
+          gl.TexCoord(1, 0);  gl.Vertex(-1, -1, -1);
+          gl.TexCoord(0, 1);  gl.Vertex(-1,-1, 1);
+
+
+            
+          gl.TexCoord(1, 0);  gl.Vertex(1, 1, -1);//6
+          gl.TexCoord(0, 0);  gl.Vertex(1, 1, 1);
+          gl.TexCoord(1, 1);  gl.Vertex(1, -1, 1);
+          gl.TexCoord(0, 1);  gl.Vertex(1, -1, -1);
 
             gl.End();
 
@@ -447,6 +416,39 @@ namespace MyEngine
 
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.A)
+            {
+                vi.pos[1] += 3;
+            }
+            
+            if (e.KeyCode == Keys.D)
+            {
+                vi.pos[1] -= 3;
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                vi.pos[0] += 3;
+            }
+            if (e.KeyCode == Keys.Z)
+            {
+                vi.pos[0] -= 3;
+            }
+            if (e.KeyCode == Keys.Q)
+            {
+                vi.pos[2] += 3;
+            }
+            if (e.KeyCode == Keys.E)
+            {
+                vi.pos[2] -= 3;
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                vip.pos[2] += 0.1f;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                vip.pos[2] -=  0.1f;
+            }
             switch (e.KeyCode)
             {
 
@@ -475,34 +477,15 @@ namespace MyEngine
 
 
                     break;
-                case Keys.A:
-
-
-                    vi.pos[1] += 3;
-
-                    break;
-                case Keys.D:
-                    vi.pos[1] -= 3;
-
-
-
-                    break;
-                case Keys.Z:
-
-
-                    vi.pos[0] += 3;
-
-                    break;
-                case Keys.X:
-                    vi.pos[0] -= 3;
-
-
-
-                    break;
+               
 
 
             }
         }
+
+       
+
+        
     }
     public class onclear
     {

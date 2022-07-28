@@ -130,6 +130,7 @@
   <ItemGroup>
     <Content Include="SharpGL.ico" />
     <Content Include="SharpGL.png" />
+    <None Include="песок_42 3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
