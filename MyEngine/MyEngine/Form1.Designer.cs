@@ -64,8 +64,7 @@ namespace MyEngine
             this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
-            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.FBO;
-            this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
             this.openGLControl1.Size = new System.Drawing.Size(804, 441);
             this.openGLControl1.TabIndex = 4;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);

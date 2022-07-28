@@ -11,6 +11,7 @@ using MyEngine.Properties;
 using SharpGL;
 using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Assets;
+using ObjParser;
 
 namespace MyEngine
 {
@@ -23,7 +24,7 @@ namespace MyEngine
             new Enemys(true),new Enemys(true,new Point(300,64))
         };
 
-
+        
         public Point size3 = new Point(30, 20);
         
         public int x; public int y;
@@ -32,12 +33,19 @@ namespace MyEngine
         public Bitmap pipis2 = Resources.pipis2;
         public Bitmap pipis3 = Resources.pipis3;
         public Texture текстура = new Texture();
+        public Texture hah = new Texture();
         public bool playerisdye;
         Component1 c = new Component1();
         GameObject[] g1;
         public Point s;
         public bool tr;
         public int e1;
+        public int cs;
+        public List<ObjParser.Types.Vertex> v = new List<ObjParser.Types.Vertex>();
+        public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
+        public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
+       
+
         public Vectorinf vi = new Vectorinf(new float[3]
         {
             0,0,0
@@ -81,10 +89,17 @@ namespace MyEngine
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
 
-            текстура.Create(gl, Resources.песок_42_3);
+            текстура.Create(gl, "ресурсы/texurecube.png");
+            hah.Create(gl, "ресурсы/hah.png");
+
+
+            var Obj = new Obj();
+            Obj.LoadObj("ресурсы/cube.obj");
+            Console.WriteLine(Obj.VertexList.Count.ToString());
+            v = Obj.VertexList;
+            f = Obj.FaceList;
+            vt = Obj.TextureList;
             
-
-
         }
 
 
@@ -362,8 +377,65 @@ namespace MyEngine
             gl.Rotate(vi.pos[0], 1, 0, 0);
             gl.Rotate(vi.pos[2], 0, 0, 1);
             текстура.Bind(gl);
-            gl.Begin(OpenGL.GL_QUADS);
+            if (cs == 0)
+            {
 
+                gl.Begin(OpenGL.GL_QUADS);
+            }
+            if (cs == 2)
+            {
+
+                gl.Begin(OpenGL.GL_QUADS);
+            }
+            if (cs == 3)
+            {
+
+                gl.Begin(OpenGL.GL_QUADS);
+            }
+            if (cs ==1)
+            {
+
+                gl.Begin(OpenGL.GL_TRIANGLES);
+            }
+
+
+            gl.PolygonMode(OpenGL.GL_FRONT,OpenGL.GL_FILL);
+            
+
+            gl.Color(1f, 1f, 1f);
+            
+                if (cs == 3)
+                {
+
+                    gl.Color(0f, 1f, 1f);
+                }
+            
+           
+
+            for (int i = 0; i < f.Count; i++)
+            {
+               
+                for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
+                {
+
+                    
+
+
+                        gl.TexCoord(vt[f[i].TextureVertexIndexList[i2] - 1].X, vt[f[i].TextureVertexIndexList[i2] - 1].Y);
+
+                    
+                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
+
+                }
+                
+
+                //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
+
+            }
+
+            
+           
+            /*
 
             gl.Color(1f, 1f, 1f);
             gl.TexCoord(0, 0); gl.Vertex(1, 1, -1);//1
@@ -405,6 +477,29 @@ namespace MyEngine
           gl.TexCoord(0, 0);  gl.Vertex(1, 1, 1);
           gl.TexCoord(1, 1);  gl.Vertex(1, -1, 1);
           gl.TexCoord(0, 1);  gl.Vertex(1, -1, -1);
+            */
+            gl.End();
+            gl.LoadIdentity();
+            gl.Translate(0f, 0f, -20.0f);
+            hah.Bind(gl);
+
+           
+
+            gl.Begin(OpenGL.GL_QUADS);
+            
+
+
+
+
+            gl.Color(1f, 1f, 1f);
+
+
+            gl.TexCoord(0.5f+ 0.5f, -0.5f + 0.5f);   gl.Vertex(-15f, 8f, 0f);
+            gl.TexCoord(-0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(15f, 8f, 0f);
+            gl.TexCoord(-0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(15f, -8f, 0f);
+            gl.TexCoord(0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(-15f,-8f, 0f);
+
+
 
             gl.End();
 
@@ -447,8 +542,72 @@ namespace MyEngine
             }
             if (e.KeyCode == Keys.S)
             {
-                vip.pos[2] -=  0.1f;
+                vip.pos[2] -= 0.1f;
             }
+            if (e.KeyCode == Keys.N)
+            {
+                vip.pos[1] += 0.1f;
+            }
+            if (e.KeyCode == Keys.M)
+            {
+                vip.pos[1] -= 0.1f;
+            }
+            if (e.KeyCode == Keys.C)
+            {
+                
+                cs ++;
+                if (cs ==0)
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/cube.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 1)
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/sphere.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 2)
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/quad-sphere.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 4)
+                {
+                    cs = 0;
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/cube.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 3)
+                {
+                   
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/pipiis.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+            }
+
+           
+            
+
             switch (e.KeyCode)
             {
 
