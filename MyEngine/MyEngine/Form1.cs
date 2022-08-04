@@ -41,6 +41,7 @@ namespace MyEngine
         public bool tr;
         public int e1;
         public int cs;
+        public bool phon;
         public List<ObjParser.Types.Vertex> v = new List<ObjParser.Types.Vertex>();
         public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
@@ -111,110 +112,16 @@ namespace MyEngine
             
             g = e.Graphics;
             g1 = c.initAllEnemyes(en);
-            // g.DrawRectangle(Pens.Red, 100, 100, 300, 200);
-
-
-            /*
-            for (int i = 0; i < en.Count; i++)
-            {
-                drawpp2(sender, en[i].ellipsepos1, false, i);
-            }*/
+            
         }
 
-        public void drawpp2(object sender, Point newpos, bool isp, int pp)
-        {
-
-            Rectangle r = new Rectangle(newpos.X, newpos.Y, 30, 20);
-
-            if (!en[pp].isdie)
-            {
-
-
-                g.DrawImage(pipis, r);
-            }
-            if (en[pp].isdie)
-            {
-
-
-                g.DrawImage(pipis1, r);
-            }
+        
 
 
 
-        }
-        public void allDraws(object sender)
-        {/*
-            g1 = c.initAllEnemyes(en);
 
-            s = new Point(Size.Width, Size.Height);
-
-            for (int i = 0; i < en.Count; i++) {
-
-                if (en[i].ellipsepos1.X > s.X-1)
-                {
-                    en[i].ellipsepos1.X = 1;
-                }
-                if (en[i].ellipsepos1.X < 1)
-                {
-                    en[i].ellipsepos1.X = s.X-1;
-                }
-                if (en[i].ellipsepos1.Y > s.Y-3)
-                {
-                    en[i].p3 = false;
-                }
-                if (en[i].ellipsepos1.Y < en[i].endstene1.X)
-                {
-                    en[i].p3 = true;
-                }
-                if (!en[i].isdie && !en[i].isnoai)
-                {
-
-
-                    if (!en[i].rot)
-                    {
-
-
-                        en[i].ellipsepos1.X += en[i].speed;
-                    }
-
-                    if (en[i].rot)
-                    {
-
-
-                        en[i].ellipsepos1.X -= en[i].speed;
-                    }
-                    if (en[i].p3)
-
-                    {
-
-
-                        en[i].ellipsepos1.Y += en[i].speed;
-                    }
-                    if (!en[i].p3)
-                    {
-
-
-                        en[i].ellipsepos1.Y -= en[i].speed;
-                    }
-                }
-
-
-
-            }
-
-
-            */
-
-
-
-        }
-        public void createpipis()
-        {
-            Enemys e9 = new Enemys(true, new Point(x, y));
-            en.Add(e9);
-            norm = true;
-            e1 = en.Count - 1;
-        }
+        
+       
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -311,11 +218,7 @@ namespace MyEngine
             
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-            createpipis();
-           
-        }
+        
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -369,14 +272,138 @@ namespace MyEngine
             }
             gl.LoadIdentity();
 
-            
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.Enable(OpenGL.GL_BLEND); 
 
-            gl.Translate(0f+vip.pos[0], 0f + vip.pos[1], -7.0f + vip.pos[2]);
+            gl.Translate(0f + vip.pos[0], 0f + vip.pos[1], -7.0f + vip.pos[2]);
 
             gl.Rotate(vi.pos[1], 0, 1, 0);
             gl.Rotate(vi.pos[0], 1, 0, 0);
             gl.Rotate(vi.pos[2], 0, 0, 1);
             текстура.Bind(gl);
+            NewMethod(gl);
+
+            gl.PolygonMode(OpenGL.GL_FRONT, OpenGL.GL_FILL);
+
+
+            gl.Color(1f, 1f, 1f);
+
+            if (cs == 3)
+            {
+
+                gl.Color(0f, 1f, 1f);
+            }
+            switch (cs)
+            {
+                case 0:
+                    NewMethod1(gl);
+                    break;
+                case 1:
+                    NewMethod1(gl);
+                    break;
+                case 2:
+                    NewMethod1(gl);
+                    break;
+                case 3:
+                    NewMethod1(gl);
+                    break;
+                case 4:
+                    NewMethod1(gl);
+                    break;
+            }
+           
+
+
+
+            
+            gl.End();
+           
+
+            gl.LoadIdentity();
+            gl.Translate(0f, 0f, -20.0f);
+            hah.Bind(gl);
+
+
+            if (!phon) {
+                gl.Begin(OpenGL.GL_QUADS);
+
+
+
+
+
+                gl.Color(1f, 1f, 1f);
+
+
+                gl.TexCoord(0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(-15f, 8f, 0f);
+                gl.TexCoord(-0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(15f, 8f, 0f);
+                gl.TexCoord(-0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(15f, -8f, 0f);
+                gl.TexCoord(0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(-15f, -8f, 0f);
+
+
+
+                gl.End();
+            }
+            gl.Flush();
+
+            rtri += 3.0f;
+            rquad += 3.0f;
+        }
+
+        private void NewMethod1(OpenGL gl)
+        {
+            for (int i = 0; i < f.Count; i++)
+            {
+
+                for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
+                {
+
+
+
+
+
+
+                    gl.TexCoord(vt[f[i].TextureVertexIndexList[i2] - 1].X, vt[f[i].TextureVertexIndexList[i2] - 1].Y);
+
+
+
+                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
+
+                }
+
+
+                //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
+
+            }
+        }
+        private void NewMethod2(OpenGL gl)
+        {
+            for (int i = 0; i < f.Count; i++)
+            {
+
+                for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
+                {
+
+
+
+
+
+
+                    
+
+
+
+                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
+
+                }
+
+
+                //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
+
+            }
+        }
+
+        private void NewMethod(OpenGL gl)
+        {
             if (cs == 0)
             {
 
@@ -392,121 +419,16 @@ namespace MyEngine
 
                 gl.Begin(OpenGL.GL_QUADS);
             }
-            if (cs ==1)
+            if (cs == 4)
+            {
+
+                gl.Begin(OpenGL.GL_QUADS);
+            }
+            if (cs == 1)
             {
 
                 gl.Begin(OpenGL.GL_TRIANGLES);
             }
-
-
-            gl.PolygonMode(OpenGL.GL_FRONT,OpenGL.GL_FILL);
-            
-
-            gl.Color(1f, 1f, 1f);
-            
-                if (cs == 3)
-                {
-
-                    gl.Color(0f, 1f, 1f);
-                }
-            
-           
-
-            for (int i = 0; i < f.Count; i++)
-            {
-               
-                for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
-                {
-
-                    
-
-
-                        gl.TexCoord(vt[f[i].TextureVertexIndexList[i2] - 1].X, vt[f[i].TextureVertexIndexList[i2] - 1].Y);
-
-                    
-                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
-
-                }
-                
-
-                //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
-
-            }
-
-            
-           
-            /*
-
-            gl.Color(1f, 1f, 1f);
-            gl.TexCoord(0, 0); gl.Vertex(1, 1, -1);//1
-            gl.TexCoord(0, 1); gl.Vertex(-1, 1, -1);
-            gl.TexCoord(1, 0); gl.Vertex(-1, 1, 1);
-            gl.TexCoord(1, 1); gl.Vertex(1, 1, 1);
-
-
-
-            gl.TexCoord(0, 1); gl.Vertex(1, -1, 1);//2
-         gl.TexCoord(1, 0);   gl.Vertex(-1, -1, 1);
-         gl.TexCoord(1, 1);   gl.Vertex(-1, -1, -1);
-         gl.TexCoord(0, 0);   gl.Vertex(1, -1, -1);
-
-
-
-            gl.TexCoord(0, 0); gl.Vertex(1, 1, 1);//3
-          gl.TexCoord(1, 1);  gl.Vertex(-1, 1, 1);
-          gl.TexCoord(1, 0);  gl.Vertex(-1, -1, 1);
-          gl.TexCoord(0, 1);  gl.Vertex(1, -1, 1);
-
-
-
-            gl.TexCoord(0, 0); gl.Vertex(1, -1, -1);//4
-          gl.TexCoord(1, 1);  gl.Vertex(-1, -1, -1);
-          gl.TexCoord(1, 0);  gl.Vertex(-1, 1, -1);
-          gl.TexCoord(0, 1);  gl.Vertex(1, 1, -1);
-
-
-
-            gl.TexCoord(0, 0); gl.Vertex(-1, 1, 1);//5
-          gl.TexCoord(1, 1);  gl.Vertex(-1, 1, -1);
-          gl.TexCoord(1, 0);  gl.Vertex(-1, -1, -1);
-          gl.TexCoord(0, 1);  gl.Vertex(-1,-1, 1);
-
-
-            
-          gl.TexCoord(1, 0);  gl.Vertex(1, 1, -1);//6
-          gl.TexCoord(0, 0);  gl.Vertex(1, 1, 1);
-          gl.TexCoord(1, 1);  gl.Vertex(1, -1, 1);
-          gl.TexCoord(0, 1);  gl.Vertex(1, -1, -1);
-            */
-            gl.End();
-            gl.LoadIdentity();
-            gl.Translate(0f, 0f, -20.0f);
-            hah.Bind(gl);
-
-           
-
-            gl.Begin(OpenGL.GL_QUADS);
-            
-
-
-
-
-            gl.Color(1f, 1f, 1f);
-
-
-            gl.TexCoord(0.5f+ 0.5f, -0.5f + 0.5f);   gl.Vertex(-15f, 8f, 0f);
-            gl.TexCoord(-0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(15f, 8f, 0f);
-            gl.TexCoord(-0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(15f, -8f, 0f);
-            gl.TexCoord(0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(-15f,-8f, 0f);
-
-
-
-            gl.End();
-
-            gl.Flush();
-
-            rtri += 3.0f;
-            rquad += 3.0f;
         }
 
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
@@ -552,6 +474,10 @@ namespace MyEngine
             {
                 vip.pos[1] -= 0.1f;
             }
+            if (e.KeyCode == Keys.U)
+            {
+                phon = !phon;
+            }
             if (e.KeyCode == Keys.C)
             {
                 
@@ -583,7 +509,7 @@ namespace MyEngine
                     f = Obj.FaceList;
                     vt = Obj.TextureList;
                 }
-                if (cs == 4)
+                if (cs == 5)
                 {
                     cs = 0;
                     var Obj = new Obj();
@@ -595,9 +521,19 @@ namespace MyEngine
                 }
                 if (cs == 3)
                 {
-                   
+
                     var Obj = new Obj();
                     Obj.LoadObj("ресурсы/pipiis.obj");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 4)
+                {
+
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/terrain.obj");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
