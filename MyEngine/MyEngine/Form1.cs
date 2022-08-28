@@ -36,7 +36,7 @@ namespace MyEngine
         public Texture hah = new Texture();
         public bool playerisdye;
         Component1 c = new Component1();
-        GameObject[] g1;
+        List<GameObject> g1 = new List<GameObject>();
         public Point s;
         public bool tr;
         public int e1;
@@ -60,15 +60,7 @@ namespace MyEngine
         public float rquad;
         
         bool norm = false;
-        List<Enemys> eny(GameObject[] g3)
-        {
-            List<Enemys> t = new List<Enemys>();
-            for (int i = 0; i < g3.Length; i++)
-            {
-                t.Add((Enemys)g3[i].type);
-            }
-            return t;
-        }
+        
         
 
         public Form1()
@@ -111,7 +103,6 @@ namespace MyEngine
         {
             
             g = e.Graphics;
-            g1 = c.initAllEnemyes(en);
             
         }
 
@@ -133,7 +124,7 @@ namespace MyEngine
             {
                 for (int i = 0; i < en.Count; i++)
                 {
-                    g1 = c.initAllEnemyes(en);
+                    
                     if (click.X > en[i].ellipsepos1.X - size3.X && click.Y > en[i].ellipsepos1.Y - size3.Y && click.X < en[i].ellipsepos1.X + size3.X && click.Y < en[i].ellipsepos1.Y + size3.Y)
                     {
                         norm = !norm;
@@ -162,7 +153,7 @@ namespace MyEngine
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             
-               
+            
             
 
 
@@ -203,7 +194,7 @@ namespace MyEngine
             Random r = new Random();
             for (int i = 0; i < en.Count; i++)
             {
-                g1 = c.initAllEnemyes(en);
+                
                 Enemys s;
                 if (en[i].isdie)
                 {
@@ -270,13 +261,15 @@ namespace MyEngine
                 gl.End();
                 */
             }
+
             gl.LoadIdentity();
+            gl.LookAt(0, 0, 0, 0, 0, 100, 0, 1, 0);
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             gl.Enable(OpenGL.GL_BLEND); 
 
-            gl.Translate(0f + vip.pos[0], 0f + vip.pos[1], -7.0f + vip.pos[2]);
-
+            gl.Translate(0f, 0f, 7.0f);
+            
             gl.Rotate(vi.pos[1], 0, 1, 0);
             gl.Rotate(vi.pos[0], 1, 0, 0);
             gl.Rotate(vi.pos[2], 0, 0, 1);
@@ -311,12 +304,18 @@ namespace MyEngine
                     NewMethod1(gl);
                     break;
             }
-           
 
+            gl.End();
+
+            
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.Enable(OpenGL.GL_BLEND);
+            
+
+            NewMethod2(gl);
 
 
             
-            gl.End();
            
 
             gl.LoadIdentity();
@@ -343,6 +342,7 @@ namespace MyEngine
 
                 gl.End();
             }
+           
             gl.Flush();
 
             rtri += 3.0f;
@@ -375,33 +375,76 @@ namespace MyEngine
 
             }
         }
+        
         private void NewMethod2(OpenGL gl)
         {
-            for (int i = 0; i < f.Count; i++)
+            int cs1 = cs;
+            for (int i3 = 0; i3 < g1.Count; i3++)
             {
-
-                for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
+                
+                cs1 = int.Parse(g1[i3].model);
+                gl.LoadIdentity();
+                gl.Translate(-g1[i3].vi.pos[0], g1[i3].vi.pos[1], -g1[i3].vi.pos[2]);
+                gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2], 0, 0, 100, 0, 1, 0);
+                gl.Color(1f, 1f, 1f);
+                if (cs1 == 3)
                 {
 
+                    gl.Color(0f, 1f, 1f);
+                }
+                if (cs1 == 0)
+                {
+
+                    gl.Begin(OpenGL.GL_QUADS);
+                }
+                if (cs1 == 2)
+                {
+
+                    gl.Begin(OpenGL.GL_QUADS);
+                }
+                if (cs1 == 3)
+                {
+
+                    gl.Begin(OpenGL.GL_QUADS);
+                }
+                if (cs1 == 4)
+                {
+
+                    gl.Begin(OpenGL.GL_QUADS);
+                }
+                if (cs1 == 1)
+                {
+
+                    gl.Begin(OpenGL.GL_TRIANGLES);
+                }
+               
+                for (int i = 0; i < g1[i3].f.Count; i++)
+                {
+
+                    for (int i2 = 0; i2 < g1[i3].f[i].VertexIndexList.Length; i2++)
+                    {
 
 
 
 
 
-                    
+
+                        gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
 
 
 
-                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
+                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X, g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y, g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
+
+                    }
+
+
+                    //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
 
                 }
-
-
-                //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
-
+                gl.End();
             }
         }
-
+        
         private void NewMethod(OpenGL gl)
         {
             if (cs == 0)
@@ -435,29 +478,15 @@ namespace MyEngine
         {
             if (e.KeyCode == Keys.A)
             {
-                vi.pos[1] += 3;
+                vip.pos[0] += 0.1f;
             }
             
             if (e.KeyCode == Keys.D)
             {
-                vi.pos[1] -= 3;
+                vip.pos[0] -= 0.1f;
             }
-            if (e.KeyCode == Keys.X)
-            {
-                vi.pos[0] += 3;
-            }
-            if (e.KeyCode == Keys.Z)
-            {
-                vi.pos[0] -= 3;
-            }
-            if (e.KeyCode == Keys.Q)
-            {
-                vi.pos[2] += 3;
-            }
-            if (e.KeyCode == Keys.E)
-            {
-                vi.pos[2] -= 3;
-            }
+            
+            
             if (e.KeyCode == Keys.W)
             {
                 vip.pos[2] += 0.1f;
@@ -466,11 +495,11 @@ namespace MyEngine
             {
                 vip.pos[2] -= 0.1f;
             }
-            if (e.KeyCode == Keys.N)
+            if (e.KeyCode == Keys.E)
             {
                 vip.pos[1] += 0.1f;
             }
-            if (e.KeyCode == Keys.M)
+            if (e.KeyCode == Keys.Q)
             {
                 vip.pos[1] -= 0.1f;
             }
@@ -540,42 +569,20 @@ namespace MyEngine
                     vt = Obj.TextureList;
                 }
             }
-
-           
+            
+            if (e.KeyCode == Keys.Space)
+            {
+                g1.Add(new GameObject(new Vectorinf(new float[3] 
+                { 
+                    0 + vip.pos[0],
+                    0 + vip.pos[1],
+                    7 + vip.pos[2]
+                })
+                    ,cs.ToString()));
+            }
             
 
-            switch (e.KeyCode)
-            {
-
-
-
-                case Keys.Escape:
-
-
-                    Application.Exit();
-
-                    break;
-
-
-
-
-
-                case Keys.W:
-
-
-                    vip.pos[2] += 0.1f;
-
-                    break;
-                case Keys.S:
-                    vip.pos[2] -= 0.1f;
-
-
-
-                    break;
-               
-
-
-            }
+            
         }
 
        

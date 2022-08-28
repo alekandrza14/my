@@ -124,7 +124,9 @@
     <None Include="Resources\bg.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cube.obj" />
+    <Resource Include="Resources\cube.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Resources\pipis.png" />
   </ItemGroup>
   <ItemGroup>
