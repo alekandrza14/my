@@ -45,7 +45,8 @@ namespace MyEngine
         public List<ObjParser.Types.Vertex> v = new List<ObjParser.Types.Vertex>();
         public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
-       
+        public float oldpos;
+        public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
 
         public Vectorinf vi = new Vectorinf(new float[3]
         {
@@ -87,12 +88,14 @@ namespace MyEngine
 
 
             var Obj = new Obj();
-            Obj.LoadObj("ресурсы/cube.obj");
+            Obj.LoadObj("ресурсы/cube.obj1");
             Console.WriteLine(Obj.VertexList.Count.ToString());
             v = Obj.VertexList;
             f = Obj.FaceList;
             vt = Obj.TextureList;
-            
+            bgup *= 5;
+            bgsizey *= 5;
+            bgsizex *= 5;
         }
 
 
@@ -220,6 +223,7 @@ namespace MyEngine
         {
             OpenGL gl = this.openGLControl1.OpenGL;
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+            
             {
                 /*
                 gl.LoadIdentity();
@@ -263,16 +267,13 @@ namespace MyEngine
             }
 
             gl.LoadIdentity();
-            gl.LookAt(0, 0, 0, 0, 0, 100, 0, 1, 0);
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             gl.Enable(OpenGL.GL_BLEND); 
 
-            gl.Translate(0f, 0f, 7.0f);
+            gl.Translate(-5f, -3.5f, -16f);
             
-            gl.Rotate(vi.pos[1], 0, 1, 0);
-            gl.Rotate(vi.pos[0], 1, 0, 0);
-            gl.Rotate(vi.pos[2], 0, 0, 1);
+            
             текстура.Bind(gl);
             NewMethod(gl);
 
@@ -303,6 +304,9 @@ namespace MyEngine
                 case 4:
                     NewMethod1(gl);
                     break;
+                case 5:
+                    NewMethod1(gl);
+                    break;
             }
 
             gl.End();
@@ -319,24 +323,24 @@ namespace MyEngine
            
 
             gl.LoadIdentity();
-            gl.Translate(0f, 0f, -20.0f);
+            gl.Translate(0f, 0f, bgup);
             hah.Bind(gl);
 
 
             if (!phon) {
                 gl.Begin(OpenGL.GL_QUADS);
 
-
+                
 
 
 
                 gl.Color(1f, 1f, 1f);
 
 
-                gl.TexCoord(0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(-15f, 8f, 0f);
-                gl.TexCoord(-0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(15f, 8f, 0f);
-                gl.TexCoord(-0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(15f, -8f, 0f);
-                gl.TexCoord(0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(-15f, -8f, 0f);
+                gl.TexCoord(0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(-bgsizex, bgsizey, 0f);
+                gl.TexCoord(-0.5f + 0.5f, -0.5f + 0.5f); gl.Vertex(bgsizex, bgsizey, 0f);
+                gl.TexCoord(-0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(bgsizex, -bgsizey, 0f);
+                gl.TexCoord(0.5f + 0.5f, 0.5f + 0.5f); gl.Vertex(-bgsizex, -bgsizey, 0f);
 
 
 
@@ -366,7 +370,7 @@ namespace MyEngine
 
 
 
-                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z);
+                    gl.Vertex(v[f[i].VertexIndexList[i2] - 1].X, v[f[i].VertexIndexList[i2] - 1].Y, v[f[i].VertexIndexList[i2] - 1].Z+7);
 
                 }
 
@@ -384,8 +388,9 @@ namespace MyEngine
                 
                 cs1 = int.Parse(g1[i3].model);
                 gl.LoadIdentity();
-                gl.Translate(-g1[i3].vi.pos[0], g1[i3].vi.pos[1], -g1[i3].vi.pos[2]);
-                gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2], 0, 0, 100, 0, 1, 0);
+                gl.Rotate(vi.pos[1], 0, 1, 0);
+                gl.Rotate(vi.pos[0], 1, 0, 0);
+                gl.Rotate(vi.pos[2], 0, 0, 1);
                 gl.Color(1f, 1f, 1f);
                 if (cs1 == 3)
                 {
@@ -417,7 +422,12 @@ namespace MyEngine
 
                     gl.Begin(OpenGL.GL_TRIANGLES);
                 }
-               
+                if (cs1 == 5)
+                {
+
+                    gl.Begin(OpenGL.GL_TRIANGLES);
+                }
+
                 for (int i = 0; i < g1[i3].f.Count; i++)
                 {
 
@@ -433,7 +443,7 @@ namespace MyEngine
 
 
 
-                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X, g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y, g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
+                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X - g1[i3].vi.pos[0] + vip.pos[0], g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y - g1[i3].vi.pos[1] + vip.pos[1], g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z+7 - g1[i3].vi.pos[2]+vip.pos[2]);
 
                     }
 
@@ -472,36 +482,41 @@ namespace MyEngine
 
                 gl.Begin(OpenGL.GL_TRIANGLES);
             }
+            if (cs == 5)
+            {
+
+                gl.Begin(OpenGL.GL_TRIANGLES);
+            }
         }
 
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
             {
-                vip.pos[0] += 0.1f;
+                vip.pos[0] += 0.3f;
             }
             
             if (e.KeyCode == Keys.D)
             {
-                vip.pos[0] -= 0.1f;
+                vip.pos[0] -= 0.3f;
             }
             
             
             if (e.KeyCode == Keys.W)
             {
-                vip.pos[2] += 0.1f;
+                vip.pos[2] += 0.3f;
             }
             if (e.KeyCode == Keys.S)
             {
-                vip.pos[2] -= 0.1f;
+                vip.pos[2] -= 0.3f;
             }
             if (e.KeyCode == Keys.E)
             {
-                vip.pos[1] += 0.1f;
+                vip.pos[1] += 0.3f;
             }
             if (e.KeyCode == Keys.Q)
             {
-                vip.pos[1] -= 0.1f;
+                vip.pos[1] -= 0.3f;
             }
             if (e.KeyCode == Keys.U)
             {
@@ -514,7 +529,7 @@ namespace MyEngine
                 if (cs ==0)
                 {
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/cube.obj");
+                    Obj.LoadObj("ресурсы/cube.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -523,7 +538,7 @@ namespace MyEngine
                 if (cs == 1)
                 {
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/sphere.obj");
+                    Obj.LoadObj("ресурсы/sphere.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -532,7 +547,7 @@ namespace MyEngine
                 if (cs == 2)
                 {
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/quad-sphere.obj");
+                    Obj.LoadObj("ресурсы/quad-sphere.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -540,9 +555,19 @@ namespace MyEngine
                 }
                 if (cs == 5)
                 {
+                    
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/arua.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (cs == 6)
+                {
                     cs = 0;
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/cube.obj");
+                    Obj.LoadObj("ресурсы/cube.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -552,7 +577,7 @@ namespace MyEngine
                 {
 
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/pipiis.obj");
+                    Obj.LoadObj("ресурсы/pipiis.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -562,7 +587,7 @@ namespace MyEngine
                 {
 
                     var Obj = new Obj();
-                    Obj.LoadObj("ресурсы/terrain.obj");
+                    Obj.LoadObj("ресурсы/terrain.obj1");
                     Console.WriteLine(Obj.VertexList.Count.ToString());
                     v = Obj.VertexList;
                     f = Obj.FaceList;
@@ -585,9 +610,13 @@ namespace MyEngine
             
         }
 
-       
+        private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            float speed = oldpos -e.X;
+            vi.pos[1] -= speed;
 
-        
+            oldpos = e.X;
+        }
     }
     public class onclear
     {

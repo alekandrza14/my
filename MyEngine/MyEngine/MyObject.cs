@@ -32,7 +32,7 @@ namespace MyEngine
             if (model == "0")
             {
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/cube.obj");
+                Obj.LoadObj("ресурсы/cube.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
@@ -41,7 +41,7 @@ namespace MyEngine
             if (model == "1")
             {
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/sphere.obj");
+                Obj.LoadObj("ресурсы/sphere.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
@@ -50,7 +50,7 @@ namespace MyEngine
             if (model == "2")
             {
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/quad-sphere.obj");
+                Obj.LoadObj("ресурсы/quad-sphere.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
@@ -60,7 +60,7 @@ namespace MyEngine
             {
                 
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/cube.obj");
+                Obj.LoadObj("ресурсы/arua.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
@@ -70,7 +70,7 @@ namespace MyEngine
             {
 
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/pipiis.obj");
+                Obj.LoadObj("ресурсы/pipiis.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
@@ -80,7 +80,7 @@ namespace MyEngine
             {
 
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/terrain.obj");
+                Obj.LoadObj("ресурсы/terrain.obj1");
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;

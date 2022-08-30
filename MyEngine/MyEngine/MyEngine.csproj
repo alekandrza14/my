@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>My Engie.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ObjParser">
       <HintPath>..\packages\ObjParser.dll</HintPath>
@@ -142,6 +145,7 @@
     <None Include="Resources\hah.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="My Engie.ico" />
     <Content Include="SharpGL.ico" />
     <Content Include="SharpGL.png" />
     <None Include="песок_42 3.png" />
