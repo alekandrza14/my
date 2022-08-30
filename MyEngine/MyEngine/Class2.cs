@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toe;
+using System.Runtime;
 
 namespace MyEngine
 {
-    class Class2
+    public static class anim
     {
-        void v()
+        public static void play(Vectorinf vi,float time, float speed)
         {
 
+            float f = (float)Math.Cos(time*speed);
+            vi.pos[1] = f;
 
-            
         }
 
-        }
+       
     }
+}

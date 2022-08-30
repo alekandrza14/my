@@ -47,6 +47,7 @@ namespace MyEngine
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
         public float oldpos;
         public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
+        public float frame;
 
         public Vectorinf vi = new Vectorinf(new float[3]
         {
@@ -96,6 +97,18 @@ namespace MyEngine
             bgup *= 5;
             bgsizey *= 5;
             bgsizex *= 5;
+            g1.Add(new GameObject(
+                new Vectorinf(new float[3]
+                {
+                    0,0,0
+                }
+                )
+                , "2")
+                
+                    
+                );
+            g1[g1.Count-1].typeanim = 1;
+
         }
 
 
@@ -385,7 +398,8 @@ namespace MyEngine
             int cs1 = cs;
             for (int i3 = 0; i3 < g1.Count; i3++)
             {
-                
+                frame++;
+                g1[i3].activeanim(frame,0.1f);
                 cs1 = int.Parse(g1[i3].model);
                 gl.LoadIdentity();
                 gl.Rotate(vi.pos[1], 0, 1, 0);
@@ -443,7 +457,9 @@ namespace MyEngine
 
 
 
-                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X - g1[i3].vi.pos[0] + vip.pos[0], g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y - g1[i3].vi.pos[1] + vip.pos[1], g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z+7 - g1[i3].vi.pos[2]+vip.pos[2]);
+                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X - g1[i3].vi.pos[0] + g1[i3].dvi.pos[0] + vip.pos[0],
+                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y - g1[i3].vi.pos[1] + g1[i3].dvi.pos[1] + vip.pos[1],
+                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z+7 - g1[i3].vi.pos[2] + g1[i3].dvi.pos[2] + vip.pos[2]);
 
                     }
 

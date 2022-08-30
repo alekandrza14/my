@@ -13,7 +13,9 @@ namespace MyEngine
     public class GameObject
     {
        public Component c = new Component();
-       public Vectorinf vi = new Vectorinf(new float[0]{
+        public Vectorinf vi = new Vectorinf(new float[0]{
+        });
+        public Vectorinf dvi = new Vectorinf(new float[5]{0,0,0,0,0
         });
         public GameObject(Vectorinf vi)
         {
@@ -21,7 +23,13 @@ namespace MyEngine
 
         }
        
-        
+        public void activeanim(float t,float speed)
+        {
+            if (this.typeanim == 1)
+            {
+                anim.play(dvi,t,speed);
+            }
+        }
        
         public GameObject(Vectorinf vi, string model)
         {
@@ -96,6 +104,7 @@ namespace MyEngine
         public object type;
         public string model;
         public bool init;
+        public int typeanim;
     }
     public class EditorObject
     {
