@@ -36,6 +36,7 @@ namespace MyEngine
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.openGLControl1 = new SharpGL.OpenGLControl();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@ namespace MyEngine
             // 
             this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.openGLControl1.DrawFPS = true;
-            this.openGLControl1.FrameRate = 10;
+            this.openGLControl1.FrameRate = 25;
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openGLControl1.Name = "openGLControl1";
@@ -71,6 +72,19 @@ namespace MyEngine
             this.openGLControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLControl1_KeyDown);
             this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Cursor = System.Windows.Forms.Cursors.No;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 18);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "rot xy :";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -78,6 +92,7 @@ namespace MyEngine
             this.BackColor = System.Drawing.Color.Ivory;
             this.BackgroundImage = global::MyEngine.Properties.Resources.hah;
             this.ClientSize = new System.Drawing.Size(804, 441);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.openGLControl1);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("MV Boli", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -93,6 +108,7 @@ namespace MyEngine
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -102,6 +118,7 @@ namespace MyEngine
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
         private SharpGL.OpenGLControl openGLControl1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

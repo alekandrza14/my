@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Runtime;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyEngine.Properties;
 using SharpGL;
+using System.Numerics;
 using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Assets;
 using ObjParser;
@@ -26,7 +28,7 @@ namespace MyEngine
 
         
         public Point size3 = new Point(30, 20);
-        
+        public Quaternion rot;
         public int x; public int y;
         public Bitmap pipis = Resources.pipis;
         public Bitmap pipis1 = Resources.pipis1;
@@ -45,7 +47,8 @@ namespace MyEngine
         public List<ObjParser.Types.Vertex> v = new List<ObjParser.Types.Vertex>();
         public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
-        public float oldpos;
+        public float narst;
+        public float oldpos = 400;
         public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
         public float frame;
 
@@ -282,14 +285,17 @@ namespace MyEngine
             gl.LoadIdentity();
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.Enable(OpenGL.GL_BLEND); 
+            gl.Enable(OpenGL.GL_BLEND);
 
+            gl.LookAt(0,0,0,0,0,-1000,0,1,0);
+
+            
             gl.Translate(-5f, -3.5f, -16f);
             
             
             текстура.Bind(gl);
             NewMethod(gl);
-
+            
             gl.PolygonMode(OpenGL.GL_FRONT, OpenGL.GL_FILL);
 
 
@@ -323,17 +329,20 @@ namespace MyEngine
             }
 
             gl.End();
-
-            
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.Enable(OpenGL.GL_BLEND);
             
 
-            NewMethod2(gl);
+
+
+                gl.Enable(OpenGL.GL_TEXTURE_2D);
+                gl.Enable(OpenGL.GL_BLEND);
+
+
+                NewMethod2(gl);
+
+
 
 
             
-           
 
             gl.LoadIdentity();
             gl.Translate(0f, 0f, bgup);
@@ -395,6 +404,7 @@ namespace MyEngine
         
         private void NewMethod2(OpenGL gl)
         {
+
             int cs1 = cs;
             for (int i3 = 0; i3 < g1.Count; i3++)
             {
@@ -402,9 +412,18 @@ namespace MyEngine
                 g1[i3].activeanim(frame,0.1f);
                 cs1 = int.Parse(g1[i3].model);
                 gl.LoadIdentity();
-                gl.Rotate(vi.pos[1], 0, 1, 0);
-                gl.Rotate(vi.pos[0], 1, 0, 0);
-                gl.Rotate(vi.pos[2], 0, 0, 1);
+                Vector3 v3 = Vector3.Transform(new Vector3(1,1,1) ,Matrix4x4.CreateFromQuaternion(rot));
+                label1.Text = "rot xy :" + v3.X +"/"+ v3.Y+"/"+ v3.Z;
+                v3 *= Vector3.Distance(new Vector3(vip.pos[0], vip.pos[1], vip.pos[2]),
+                    new Vector3(g1[i3].vi.pos[0] + g1[i3].dvi.pos[0], g1[i3].vi.pos[1] + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2]));
+                v3 *= 100;
+                gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2],
+                    v3.X, 
+                    v3.Y- Vector3.Distance(new Vector3(vip.pos[0], vip.pos[1], vip.pos[2]),
+                    new Vector3(g1[i3].vi.pos[0] + g1[i3].dvi.pos[0], g1[i3].vi.pos[1]
+                    + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2])) *100,
+                    v3.Z, 0, 1, 0);
+                gl.Translate(g1[i3].vi.pos[0]+ g1[i3].dvi.pos[0], g1[i3].vi.pos[1] + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2]);
                 gl.Color(1f, 1f, 1f);
                 if (cs1 == 3)
                 {
@@ -457,9 +476,9 @@ namespace MyEngine
 
 
 
-                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X - g1[i3].vi.pos[0] + g1[i3].dvi.pos[0] + vip.pos[0],
-                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y - g1[i3].vi.pos[1] + g1[i3].dvi.pos[1] + vip.pos[1],
-                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z+7 - g1[i3].vi.pos[2] + g1[i3].dvi.pos[2] + vip.pos[2]);
+                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
+                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
+                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
 
                     }
 
@@ -625,13 +644,29 @@ namespace MyEngine
 
             
         }
-
+        
         private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
         {
             float speed = oldpos -e.X;
-            vi.pos[1] -= speed;
+            speed /= 200;
+            
+            narst += speed*2;
 
-            oldpos = e.X;
+
+            rot = Quaternion.CreateFromAxisAngle(new Vector3(0,1,0),narst);
+
+
+
+
+
+
+            oldpos = e.X; 
+            
+
+
+                
+            
+            
         }
     }
     public class onclear
