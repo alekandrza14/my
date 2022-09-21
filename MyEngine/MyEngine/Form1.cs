@@ -55,9 +55,9 @@ namespace MyEngine
         public Vectorinf vi = new Vectorinf(new float[3]
         {
             0,0,0
-        }); public Vectorinf vip = new Vectorinf(new float[3]
+        }); public Vectorinf vip = new Vectorinf(new float[4]
         {
-            0,0,0
+            0,0,0,8
         });
         
 
@@ -101,9 +101,9 @@ namespace MyEngine
             bgsizey *= 5;
             bgsizex *= 5;
             g1.Add(new GameObject(
-                new Vectorinf(new float[3]
+                new Vectorinf(new float[4]
                 {
-                    0,0,0
+                    0,0,0,8
                 }
                 )
                 , "2")
@@ -468,22 +468,35 @@ namespace MyEngine
                     {
 
 
-
+                        Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X / (vip.pos[3]-g1[i3].vi.pos[3])) + vip.pos[0] / (vip.pos[3] - g1[i3].vi.pos[3]),
+                            ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] / (vip.pos[3] - g1[i3].vi.pos[3]),
+                            ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] / (vip.pos[3] - g1[i3].vi.pos[3]));
+                        Vector3 v33 = new Vector3((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
+                             (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
+                             (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
 
 
 
                         gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
 
 
+                        if (vip.pos[3]!= g1[i3].vi.pos[3])
+                        {
 
-                        gl.Vertex(g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
-                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
-                            g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
+
+                            gl.Vertex(v32.X, v32.Y, v32.Z);
+                        }
+                        if (vip.pos[3] == g1[i3].vi.pos[3])
+                        {
+
+
+                            gl.Vertex(v33.X, v33.Y, v33.Z);
+                        }
 
                     }
 
 
-                    //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
+                        //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
 
                 }
                 gl.End();
@@ -530,13 +543,22 @@ namespace MyEngine
             {
                 vip.pos[0] += 0.3f;
             }
-            
+
             if (e.KeyCode == Keys.D)
             {
                 vip.pos[0] -= 0.3f;
             }
-            
-            
+            if (e.KeyCode == Keys.Z)
+            {
+                vip.pos[3] += 0.3f;
+            }
+
+            if (e.KeyCode == Keys.X)
+            {
+                vip.pos[3] -= 0.3f;
+            }
+
+
             if (e.KeyCode == Keys.W)
             {
                 vip.pos[2] += 0.3f;
@@ -632,11 +654,12 @@ namespace MyEngine
             
             if (e.KeyCode == Keys.Space)
             {
-                g1.Add(new GameObject(new Vectorinf(new float[3] 
+                g1.Add(new GameObject(new Vectorinf(new float[4] 
                 { 
                     0 + vip.pos[0],
                     0 + vip.pos[1],
-                    7 + vip.pos[2]
+                    7 + vip.pos[2],
+                    0 + vip.pos[3]
                 })
                     ,cs.ToString()));
             }
