@@ -15,6 +15,8 @@ namespace MyEngine
        public Component c = new Component();
         public Vectorinf vi = new Vectorinf(new float[0]{
         });
+        public Vectorinf vis = new Vectorinf(new float[4]{1,1,1,1
+        });
         public Vectorinf dvi = new Vectorinf(new float[5]{0,0,0,0,0
         });
         public GameObject(Vectorinf vi)

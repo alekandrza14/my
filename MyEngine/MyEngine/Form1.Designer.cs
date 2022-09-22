@@ -43,7 +43,7 @@ namespace MyEngine
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 1;
             // 
             // timer2
             // 
@@ -59,13 +59,14 @@ namespace MyEngine
             // openGLControl1
             // 
             this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.openGLControl1.DrawFPS = true;
+            this.openGLControl1.DrawFPS = false;
             this.openGLControl1.FrameRate = 25;
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
-            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.FBO;
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.NativeWindow;
+            this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl1.Size = new System.Drawing.Size(804, 441);
             this.openGLControl1.TabIndex = 4;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);

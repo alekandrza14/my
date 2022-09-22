@@ -47,8 +47,11 @@ namespace MyEngine
         public List<ObjParser.Types.Vertex> v = new List<ObjParser.Types.Vertex>();
         public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
-        public float narst;
+        public float narst; public float narst2;
         public float oldpos = 400;
+        public float oldpos2 = 200; 
+        public float oldspeed = 0;
+        public float oldspeed2 = 0;
         public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
         public float frame;
 
@@ -57,7 +60,7 @@ namespace MyEngine
             0,0,0
         }); public Vectorinf vip = new Vectorinf(new float[4]
         {
-            0,0,0,8
+            0,2,-4,8
         });
         
 
@@ -111,7 +114,17 @@ namespace MyEngine
                     
                 );
             g1[g1.Count-1].typeanim = 1;
+            g1.Add(new GameObject(
+                new Vectorinf(new float[4]
+                {
+                    0,-7,0,8
+                }
+                )
+                , "4")
 
+
+                );
+            g1[g1.Count - 1].vis.SetVector4(new Vector4(10, 10, 10, 10));
         }
 
 
@@ -467,39 +480,47 @@ namespace MyEngine
                     for (int i2 = 0; i2 < g1[i3].f[i].VertexIndexList.Length; i2++)
                     {
 
-
-                        Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X / (vip.pos[3]-g1[i3].vi.pos[3])) + vip.pos[0] / (vip.pos[3] - g1[i3].vi.pos[3]),
-                            ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] / (vip.pos[3] - g1[i3].vi.pos[3]),
-                            ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] / (vip.pos[3] - g1[i3].vi.pos[3]));
-                        Vector3 v33 = new Vector3((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
-                             (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
-                             (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
-
-
-
-                        gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
-
-
-                        if (vip.pos[3]!= g1[i3].vi.pos[3])
+                        if (Vector4.Distance(vip.GetVector4(), g1[i3].vi.GetVector4())<100+ Vector4.Distance( g1[i3].vis.GetVector4(),Vector4.Zero))
                         {
 
 
-                            gl.Vertex(v32.X, v32.Y, v32.Z);
+                            Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[0] * (vip.pos[3] - g1[i3].vi.pos[3]),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] * (vip.pos[3] - g1[i3].vi.pos[3]),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] * (vip.pos[3] - g1[i3].vi.pos[3]));
+                            Vector3 v33 = new Vector3((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
+                                 (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
+                                 (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
+
+
+
+                            gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
+
+
+                            if (vip.pos[3] != g1[i3].vi.pos[3])
+                            {
+
+
+                                gl.Vertex(v32.X * g1[i3].vis.GetVector4().X,
+                                    v32.Y * g1[i3].vis.GetVector4().Y,
+                                    v32.Z * g1[i3].vis.GetVector4().Z);
+                            }
+                            if (vip.pos[3] == g1[i3].vi.pos[3])
+                            {
+
+
+                                gl.Vertex(v33.X * g1[i3].vis.GetVector4().X,
+                                    v33.Y * g1[i3].vis.GetVector4().Y,
+                                    v33.Z * g1[i3].vis.GetVector4().Z);
+                            }
+
                         }
-                        if (vip.pos[3] == g1[i3].vi.pos[3])
-                        {
-
-
-                            gl.Vertex(v33.X, v33.Y, v33.Z);
-                        }
-
                     }
 
 
-                        //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
+                    //gl.TexCoord(vt[f[i].VertexIndexList[i2] - 1].X, vt[f[i].VertexIndexList[i2] - 1].Y);
 
                 }
-                gl.End();
+                    gl.End();
             }
         }
         
@@ -539,14 +560,18 @@ namespace MyEngine
 
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
+            
+            
             if (e.KeyCode == Keys.A)
             {
-                vip.pos[0] += 0.3f;
+                vip.SetVector3(vip.GetVector3() + (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, -0.3f, 0)), rot).Translation));
+                
             }
 
             if (e.KeyCode == Keys.D)
             {
-                vip.pos[0] -= 0.3f;
+                vip.SetVector3(vip.GetVector3() - (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, -0.3f, 0)), rot).Translation));
+                
             }
             if (e.KeyCode == Keys.Z)
             {
@@ -561,11 +586,15 @@ namespace MyEngine
 
             if (e.KeyCode == Keys.W)
             {
-                vip.pos[2] += 0.3f;
+                //  vip.pos[2] += 0.3f;
+               vip.SetVector3(vip.GetVector3() + (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, 0f, 0.3f)), rot).Translation));
+                
             }
             if (e.KeyCode == Keys.S)
             {
-                vip.pos[2] -= 0.3f;
+                vip.SetVector3(vip.GetVector3() - (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, 0.3f, 0.3f)), rot).Translation));
+
+               
             }
             if (e.KeyCode == Keys.E)
             {
@@ -655,10 +684,10 @@ namespace MyEngine
             if (e.KeyCode == Keys.Space)
             {
                 g1.Add(new GameObject(new Vectorinf(new float[4] 
-                { 
-                    0 + vip.pos[0],
-                    0 + vip.pos[1],
-                    7 + vip.pos[2],
+                {
+                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).X +  vip.pos[0],
+                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).Y +  vip.pos[1],
+                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).Z + vip.pos[2],
                     0 + vip.pos[3]
                 })
                     ,cs.ToString()));
@@ -670,26 +699,40 @@ namespace MyEngine
         
         private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
         {
-            float speed = oldpos -e.X;
+            float speed = oldpos - e.X;
             speed /= 200;
             
-            narst += speed*2;
+
+
+                    narst += speed * 2;
+            oldspeed = speed;
+            float speed2 = oldpos2 - e.Y;
+            speed2 /= 200;
+
+
+            
+
+
+                narst2 += speed2 * 2;
+            
+                oldspeed2 = speed2;
+
 
 
             rot = Quaternion.CreateFromAxisAngle(new Vector3(0,1,0),narst);
 
+            rot = Quaternion.Concatenate(Quaternion.CreateFromAxisAngle(new Vector3(-1, 0, 0), narst2),rot);
 
 
 
 
-
-            oldpos = e.X; 
-            
+            oldpos = e.X - (oldspeed*11);
 
 
-                
-            
-            
+
+
+            oldpos2 = e.Y - (oldspeed2 * 11);
+
         }
     }
     public class onclear
