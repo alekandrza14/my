@@ -15,6 +15,7 @@ using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Assets;
 using ObjParser;
 
+
 namespace MyEngine
 {
 
@@ -54,11 +55,84 @@ namespace MyEngine
         public float oldspeed2 = 0;
         public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
         public float frame;
+        Camera camera;
+        FpsController motionCtrl;
+        Physics physics;
+        Render render;
+        public float delta4;
 
-        public Vectorinf vi = new Vectorinf(new float[3]
+        System.Timers.Timer inputUpdateTimer;
+
+        public void start()
         {
-            0,0,0
-        }); public Vectorinf vip = new Vectorinf(new float[4]
+            
+            Width = Const.DISPLAY_XGA_W;
+            Height = Const.DISPLAY_XGA_H;
+
+            render = new Render();
+
+            camera = new Camera(
+                    vip.GetVector3t(),
+                    new OpenTK.Vector3(0, 0, 1),
+                    new OpenTK.Vector3(0, 1, 0)
+                    ); 
+            
+            physics = new Physics();
+            motionCtrl = new FpsController();
+
+            inputUpdateTimer = new System.Timers.Timer(Const.INPUT_UPDATE_INTERVAL);
+            inputUpdateTimer.Elapsed += UpdateInput;
+            lastTicks = DateTime.Now.Ticks;
+            inputUpdateTimer.Enabled = true;
+        }
+        long lastTicks;
+        private void UpdateInput(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            
+            camera.Origin = vip.GetVector3t();
+            float delta = (e.SignalTime.Ticks - lastTicks) / 10000000.0f;
+            lastTicks = e.SignalTime.Ticks;
+            physics.GlobalTime += delta;
+            delta4 = delta;
+            // update player input (keyboard_wasd+space+shift + mouse-look)
+            Ray motionStep = motionCtrl.Update(delta, camera.RayCopy);
+
+            // gravity free fall
+            /*
+            OpenTK.Vector3 freeFallVector = physics.Gravity(
+                delta,
+                camera.RayCopy,
+                Const.PLAYER_HIT_RADIUS,
+              motionStep.Origin.Y > 0
+                );*/
+
+           // motionStep.Origin += freeFallVector;
+
+            // wall collide
+            /*
+            float sd = physics.CastRay(
+                camera.Origin,
+                OpenTK.Vector3.NormalizeFast(motionStep.Origin)
+                );
+            */
+
+            // when hit the wall
+            
+                camera.Target = motionStep.Target;    // view only
+                // smooth wall sliding
+                
+
+        }
+        public Vectorinf vi1 = new Vectorinf(new float[4]
+        {
+            0,0,0,0
+        }); public Vectorinf vi2 = new Vectorinf(new float[4]
+         {
+            0,0,0,0
+         }); public Vectorinf vi3 = new Vectorinf(new float[4]
+         {
+            0,0,0,0
+         }); public Vectorinf vip = new Vectorinf(new float[4]
         {
             0,2,-4,8
         });
@@ -74,7 +148,7 @@ namespace MyEngine
         public Form1()
         {
 
-         
+            start();
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
@@ -140,11 +214,16 @@ namespace MyEngine
 
         
 
-
-
-
         
-       
+
+
+        public void randomwindow()
+        {
+            Random r = new Random();
+            SetDesktopLocation(r.Next(-1, 2)+ Location.X, r.Next(-1, 2) + Location.Y);
+        }
+
+
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -250,7 +329,12 @@ namespace MyEngine
 
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
+            if (tr == true)
+            {
+                randomwindow();
+            }
             OpenGL gl = this.openGLControl1.OpenGL;
+            
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             
             {
@@ -417,7 +501,7 @@ namespace MyEngine
         
         private void NewMethod2(OpenGL gl)
         {
-
+            
             int cs1 = cs;
             for (int i3 = 0; i3 < g1.Count; i3++)
             {
@@ -426,16 +510,13 @@ namespace MyEngine
                 cs1 = int.Parse(g1[i3].model);
                 gl.LoadIdentity();
                 Vector3 v3 = Vector3.Transform(new Vector3(1,1,1) ,Matrix4x4.CreateFromQuaternion(rot));
-                label1.Text = "rot xy :" + v3.X +"/"+ v3.Y+"/"+ v3.Z;
+                label1.Text = "pos xyzw :" + vip.pos[0] +"/" + vip.pos[1] + "/"+ +vip.pos[2] + "/" + vip.pos[3];
                 v3 *= Vector3.Distance(new Vector3(vip.pos[0], vip.pos[1], vip.pos[2]),
                     new Vector3(g1[i3].vi.pos[0] + g1[i3].dvi.pos[0], g1[i3].vi.pos[1] + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2]));
                 v3 *= 100;
                 gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2],
-                    v3.X, 
-                    v3.Y- Vector3.Distance(new Vector3(vip.pos[0], vip.pos[1], vip.pos[2]),
-                    new Vector3(g1[i3].vi.pos[0] + g1[i3].dvi.pos[0], g1[i3].vi.pos[1]
-                    + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2])) *100,
-                    v3.Z, 0, 1, 0);
+                    camera.Target.X* 6.28f * (Vector3.Distance(Vector3.Zero, vip.GetVector3()) / 1.25f), camera.Target.Y * 6.28f * (Vector3.Distance(Vector3.Zero, vip.GetVector3()) / 1.25f), camera.Target.Z * 6.28f *( Vector3.Distance(Vector3.Zero, vip.GetVector3())/ 1.25f), camera.Up.X, camera.Up.Y, camera.Up.Z);
+                
                 gl.Translate(g1[i3].vi.pos[0]+ g1[i3].dvi.pos[0], g1[i3].vi.pos[1] + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2]);
                 gl.Color(1f, 1f, 1f);
                 if (cs1 == 3)
@@ -484,9 +565,9 @@ namespace MyEngine
                         {
 
 
-                            Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[0] * (vip.pos[3] - g1[i3].vi.pos[3]),
-                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] * (vip.pos[3] - g1[i3].vi.pos[3]),
-                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z / (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] * (vip.pos[3] - g1[i3].vi.pos[3]));
+                            Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[0] * (vip.pos[3] - g1[i3].vi.pos[3]),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] * (vip.pos[3] - g1[i3].vi.pos[3]),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] * (vip.pos[3] - g1[i3].vi.pos[3]));
                             Vector3 v33 = new Vector3((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
                                  (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
                                  (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
@@ -495,8 +576,13 @@ namespace MyEngine
 
                             gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
 
+                            v33*= v32;
 
-                            if (vip.pos[3] != g1[i3].vi.pos[3])
+                            gl.Vertex(v32.X * g1[i3].vis.GetVector4().X,
+                                    v32.Y * g1[i3].vis.GetVector4().Y,
+                                    v32.Z * g1[i3].vis.GetVector4().Z);
+                            /*
+                            if ((int)(vip.pos[3]-2)/2 != (int)(g1[i3].vi.pos[3] -2)/ 2)
                             {
 
 
@@ -504,7 +590,7 @@ namespace MyEngine
                                     v32.Y * g1[i3].vis.GetVector4().Y,
                                     v32.Z * g1[i3].vis.GetVector4().Z);
                             }
-                            if (vip.pos[3] == g1[i3].vi.pos[3])
+                            if ((int)(vip.pos[3] - 2) / 2 == (int)(g1[i3].vi.pos[3] - 2) / 2)
                             {
 
 
@@ -512,7 +598,7 @@ namespace MyEngine
                                     v33.Y * g1[i3].vis.GetVector4().Y,
                                     v33.Z * g1[i3].vis.GetVector4().Z);
                             }
-
+                            */
                         }
                     }
 
@@ -561,48 +647,52 @@ namespace MyEngine
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
             
-            
-            if (e.KeyCode == Keys.A)
-            {
-                vip.SetVector3(vip.GetVector3() + (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, -0.3f, 0)), rot).Translation));
-                
-            }
 
             if (e.KeyCode == Keys.D)
             {
-                vip.SetVector3(vip.GetVector3() - (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, -0.3f, 0)), rot).Translation));
+                vip.SetVector3t(vip.GetVector3t()+ OpenTK.Vector3.Cross(camera.Target,new OpenTK.Vector3(0,1,0)));
+
+            }
+
+            if (e.KeyCode == Keys.A)
+            {
+                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
                 
             }
             if (e.KeyCode == Keys.Z)
             {
-                vip.pos[3] += 0.3f;
+                vip.pos[3] += delta4/4;
             }
 
             if (e.KeyCode == Keys.X)
             {
-                vip.pos[3] -= 0.3f;
+                vip.pos[3] -= delta4 / 4;
+            }
+            if (e.KeyCode == Keys.F1)
+            {
+                tr=!tr;
             }
 
 
             if (e.KeyCode == Keys.W)
             {
                 //  vip.pos[2] += 0.3f;
-               vip.SetVector3(vip.GetVector3() + (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, 0f, 0.3f)), rot).Translation));
+               vip.SetVector3t(vip.GetVector3t()+camera.Target);
                 
             }
             if (e.KeyCode == Keys.S)
             {
-                vip.SetVector3(vip.GetVector3() - (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(0.3f, 0.3f, 0.3f)), rot).Translation));
+                vip.SetVector3t(vip.GetVector3t() - camera.Target);
 
                
             }
             if (e.KeyCode == Keys.E)
             {
-                vip.pos[1] += 0.3f;
+                vip.pos[1] += 100f*delta4;
             }
             if (e.KeyCode == Keys.Q)
             {
-                vip.pos[1] -= 0.3f;
+                vip.pos[1] -= 100f * delta4;
             }
             if (e.KeyCode == Keys.U)
             {
@@ -683,11 +773,12 @@ namespace MyEngine
             
             if (e.KeyCode == Keys.Space)
             {
+                
                 g1.Add(new GameObject(new Vectorinf(new float[4] 
                 {
-                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).X +  vip.pos[0],
-                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).Y +  vip.pos[1],
-                    (Matrix4x4.Transform(Matrix4x4.CreateTranslation(new Vector3(4, -1, 7f)), rot).Translation).Z + vip.pos[2],
+                    (camera.Target.X *7) +  vip.pos[0],
+                    ( camera.Target.Y *7) +  vip.pos[1],
+                     (camera.Target.Z *7) + vip.pos[2],
                     0 + vip.pos[3]
                 })
                     ,cs.ToString()));
@@ -699,6 +790,7 @@ namespace MyEngine
         
         private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
         {
+            /*
             float speed = oldpos - e.X;
             speed /= 200;
             
@@ -732,7 +824,7 @@ namespace MyEngine
 
 
             oldpos2 = e.Y - (oldspeed2 * 11);
-
+            */
         }
     }
     public class onclear

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenTK;
+
 
 namespace MyEngine
 {
@@ -16,8 +18,10 @@ namespace MyEngine
         [STAThread]
         static void Main()
         {
+            OpenTK.Vector2 t = OpenTK.Vector2.Zero;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
             Application.Run(new Form1());
 
 
