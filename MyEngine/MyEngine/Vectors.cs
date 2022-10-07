@@ -5,11 +5,41 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Text.Json.Serialization;
+
 namespace MyEngine
 {
+    public class Цвет
+    {
+        public string json;
+        public string tojson()
+        {
+           json = System.Text.Json.JsonSerializer.Serialize<Цвет>(this);
+            return json;
+        }
+        public Цвет(byte c1, byte c2, byte c3)
+        {
+            color1 = c1; 
+            color2 = c2;
+            color3 = c3;
+        }
+        [JsonPropertyName("color1")]
+        public byte color1 { get; set; }
+        [JsonPropertyName("color2")]
+        public byte color2 { get; set; }
+        [JsonPropertyName("color3")]
+        public byte color3 { get; set; }
+    }
     public class Vectorinf
     {
-        public float[] pos;
+        public string json;
+        public string tojson()
+        {
+            json = System.Text.Json.JsonSerializer.Serialize<Vectorinf>(this);
+            return json;
+        }
+        [JsonPropertyName("position")]
+        public float[] pos { get; set; }
         public Vector2 GetVector2()
         {
             Vector2 v2 = new Vector2(pos[0], pos[1]);

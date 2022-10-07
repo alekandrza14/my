@@ -6,19 +6,35 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel;
 using ObjParser;
-
+using System.Text.Json.Serialization;
 
 namespace MyEngine
 {
+    
     public class GameObject
     {
-       public Component c = new Component();
+        [JsonPropertyName("vector")]
         public Vectorinf vi = new Vectorinf(new float[0]{
         });
+        [JsonPropertyName("vector2")]
         public Vectorinf vis = new Vectorinf(new float[4]{1,1,1,1
         });
+        [JsonPropertyName("vector3")]
         public Vectorinf dvi = new Vectorinf(new float[5]{0,0,0,0,0
         });
+        [JsonPropertyName("dop")]
+        public string[] json { get; set; }
+        public List<string> jsons = new List<string>();
+        public void Save()
+        {
+            jsons.Add(цвет.tojson());
+            jsons.Add(vi.tojson());
+            jsons.Add(vis.tojson());
+            jsons.Add(dvi.tojson());
+            json = jsons.ToArray();
+        }
+
+
         public GameObject(Vectorinf vi)
         {
             this.vi = vi;
@@ -31,6 +47,12 @@ namespace MyEngine
             {
                 anim.play(dvi,t,speed);
             }
+        }
+        public void setцвет(Цвет ргб)
+        {
+            цвет = ргб;
+
+
         }
        
         public GameObject(Vectorinf vi, string model)
@@ -96,6 +118,16 @@ namespace MyEngine
                 f = Obj.FaceList;
                 vt = Obj.TextureList;
             }
+            if (model == "6")
+            {
+
+                var Obj = new Obj();
+                Obj.LoadObj("ресурсы/cat.obj1");
+                Console.WriteLine(Obj.VertexList.Count.ToString());
+                v = Obj.VertexList;
+                f = Obj.FaceList;
+                vt = Obj.TextureList;
+            }
         }
 
 
@@ -104,9 +136,13 @@ namespace MyEngine
         public List<ObjParser.Types.Face> f = new List<ObjParser.Types.Face>();
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
         public object type;
-        public string model;
+        [JsonPropertyName("model_id")]
+        public string model { get; set; }
+        [JsonPropertyName("color")]
+        public Цвет цвет = new Цвет(0, 0, 0);
         public bool init;
-        public int typeanim;
+        [JsonPropertyName("anim_id")]
+        public int typeanim { get; set; }
     }
     public class EditorObject
     {
@@ -121,6 +157,7 @@ namespace MyEngine
             this.vi = vi;
             this.type = type;
         }
+        
         public object type;
         public string name;
         public bool init;
