@@ -1,0 +1,7 @@
+﻿  Source.cpp
+C:\Users\User\source\repos\my\MyEngine\Color_inspector_cpp\Source.cpp(3,18): error C2365: PROC: переопределение; предыдущим определением было "typedef"
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(229): message : см. объявление "PROC"
+C:\Users\User\source\repos\my\MyEngine\Color_inspector_cpp\Source.cpp(8,32): error C2275: PROC: недопустимое использование этого типа в качестве выражения
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(229): message : см. объявление "PROC"
+C:\Users\User\source\repos\my\MyEngine\Color_inspector_cpp\Source.cpp(35,18): error C2365: PROC: переопределение; предыдущим определением было "typedef"
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(229): message : см. объявление "PROC"

@@ -1,0 +1,7 @@
+﻿  Source.cpp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 3 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+C:\Users\User\source\repos\my\MyEngine\Color_inspector_cpp\Source.cpp(48): warning C4715: PROCZZZ: значение возвращается не при всех путях выполнения
+  Создание кода завершено
+  Color_inspector_cpp.vcxproj -> C:\Users\User\source\repos\my\MyEngine\Release\Color_inspector_cpp.exe
