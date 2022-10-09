@@ -1,0 +1,6 @@
+C:\Users\User\source\repos\Color_inspector_cpp\Color_inspector_cpp\Release\Color_inspector_cpp.vcxproj.AssemblyReference.cache
+C:\Users\User\source\repos\Color_inspector_cpp\Color_inspector_cpp\Release\Colorinspectorcpp.MyForm.resources
+C:\Users\User\source\repos\Color_inspector_cpp\Color_inspector_cpp\Release\Color_inspector_cpp.vcxproj.GenerateResource.cache
+C:\Users\User\source\repos\my\Color_inspector_cpp\Color_inspector_cpp\Release\Color_inspector_cpp.vcxproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\Color_inspector_cpp\Color_inspector_cpp\Release\Colorinspectorcpp.MyForm.resources
+C:\Users\User\source\repos\my\Color_inspector_cpp\Color_inspector_cpp\Release\Color_inspector_cpp.vcxproj.GenerateResource.cache
