@@ -170,7 +170,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c1 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		
 
@@ -181,7 +181,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c1 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 		load();
@@ -190,7 +190,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c1 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 		load();
@@ -199,7 +199,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c3 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 		load();
@@ -208,7 +208,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c1 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 		load();
@@ -217,7 +217,7 @@ namespace Colorinspectorcpp {
 		c3 = trackBar1->Value;
 		c2 = trackBar2->Value;
 		c1 = trackBar3->Value;
-		json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+		json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 		label1->Text = json;
 		this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 		load();
@@ -230,7 +230,7 @@ private: System::Void trackBar1_MouseDown(System::Object^ sender, System::Window
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value; 
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 	label1->Text = json;
 	this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 	load();
@@ -239,7 +239,7 @@ private: System::Void trackBar1_MouseUp(System::Object^ sender, System::Windows:
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value;
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 	label1->Text = json;
 	this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 	load();
@@ -248,7 +248,7 @@ private: System::Void trackBar2_MouseDown(System::Object^ sender, System::Window
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value;
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 	label1->Text = json;
 	this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 	load();
@@ -257,7 +257,7 @@ private: System::Void trackBar2_MouseUp(System::Object^ sender, System::Windows:
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value;
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 	label1->Text = json;
 	Color c;
 
@@ -268,7 +268,7 @@ private: System::Void trackBar3_MouseDown(System::Object^ sender, System::Window
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value;
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 
 	label1->Text = json;
 	this->panel1->BackColor = this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
@@ -281,7 +281,7 @@ private: System::Void trackBar3_MouseUp(System::Object^ sender, System::Windows:
 	c3 = trackBar1->Value;
 	c2 = trackBar2->Value;
 	c1 = trackBar3->Value;
-	json = "{\"color1\":" + c3 + ",\"color2\":" + c2 + ",\"color3\":" + c1 + "}";
+	json = "{\"color1\":" + c1 + ",\"color2\":" + c2 + ",\"color3\":" + c3 + "}";
 	label1->Text = json;
 	this->panel1->BackColor =	this->panel1->BackColor.FromArgb(255, (int)c1, (int)c2, (int)c3);
 	load();
