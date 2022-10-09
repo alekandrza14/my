@@ -87,6 +87,7 @@ namespace MyEngine
             inputUpdateTimer.Enabled = true;
         }
         long lastTicks;
+        Ray motionStep = new Ray();
         private void UpdateInput(object sender, System.Timers.ElapsedEventArgs e)
         {
             
@@ -95,30 +96,36 @@ namespace MyEngine
             lastTicks = e.SignalTime.Ticks;
             physics.GlobalTime += delta;
             delta4 = delta;
-            // update player input (keyboard_wasd+space+shift + mouse-look)
-            Ray motionStep = motionCtrl.Update(delta, camera.RayCopy);
-
-            // gravity free fall
-            /*
-            OpenTK.Vector3 freeFallVector = physics.Gravity(
-                delta,
-                camera.RayCopy,
-                Const.PLAYER_HIT_RADIUS,
-              motionStep.Origin.Y > 0
-                );*/
-
-           // motionStep.Origin += freeFallVector;
-
-            // wall collide
-            /*
-            float sd = physics.CastRay(
-                camera.Origin,
-                OpenTK.Vector3.NormalizeFast(motionStep.Origin)
-                );
-            */
-
-            // when hit the wall
             
+            // update player input (keyboard_wasd+space+shift + mouse-look)
+            if (ondrag)
+            {
+
+
+                motionStep = motionCtrl.Update(delta, camera.RayCopy);
+            }
+
+                // gravity free fall
+                /*
+                OpenTK.Vector3 freeFallVector = physics.Gravity(
+                    delta,
+                    camera.RayCopy,
+                    Const.PLAYER_HIT_RADIUS,
+                  motionStep.Origin.Y > 0
+                    );*/
+
+                // motionStep.Origin += freeFallVector;
+
+                // wall collide
+                /*
+                float sd = physics.CastRay(
+                    camera.Origin,
+                    OpenTK.Vector3.NormalizeFast(motionStep.Origin)
+                    );
+                */
+
+                // when hit the wall
+
                 camera.Target = motionStep.Target;    // view only
                 // smooth wall sliding
                 
@@ -143,7 +150,7 @@ namespace MyEngine
         public float rquad;
         
         bool norm = false;
-        
+        bool ondrag;
         
 
         public Form1()
@@ -330,6 +337,16 @@ namespace MyEngine
 
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
+            if (File.Exists("C:/MyEngine/color.json"))
+            {
+
+
+                Цвет ц1 = new Цвет(0, 0, 0);
+                ц1 = ц1.fromjson(File.ReadAllText("C:/MyEngine/color.json"));
+                trackBar1.Value = ц1.color1; 
+                trackBar2.Value = ц1.color2;
+                trackBar3.Value = ц1.color3;
+            }
             if (tr == true)
             {
                 randomwindow();
@@ -868,6 +885,16 @@ namespace MyEngine
             File.WriteAllText("demosave/save.json",s);
             textBox1.Text = s;
 
+        }
+
+        private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ondrag = true;
+        }
+
+        private void openGLControl1_MouseUp(object sender, MouseEventArgs e)
+        {
+            ondrag = false;
         }
     }
     public class onclear

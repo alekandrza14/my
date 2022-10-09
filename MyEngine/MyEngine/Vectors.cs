@@ -9,13 +9,28 @@ using System.Text.Json.Serialization;
 
 namespace MyEngine
 {
+    public class fallcolor
+    {
+        [JsonPropertyName("color1")]
+        public byte color1 { get; set; }
+        [JsonPropertyName("color2")]
+        public byte color2 { get; set; }
+        [JsonPropertyName("color3")]
+        public byte color3 { get; set; }
+    }
+
     public class Цвет
     {
         public string json;
         public string tojson()
         {
-           json = System.Text.Json.JsonSerializer.Serialize<Цвет>(this);
+            json = System.Text.Json.JsonSerializer.Serialize<Цвет>(this);
             return json;
+        }
+        public Цвет fromjson(string json)
+        {
+            fallcolor f = System.Text.Json.JsonSerializer.Deserialize<fallcolor>(json);
+            return new Цвет(f.color1, f.color2, f.color3);
         }
         public Цвет(byte c1, byte c2, byte c3)
         {
