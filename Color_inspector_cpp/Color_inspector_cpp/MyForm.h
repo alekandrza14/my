@@ -2,6 +2,7 @@
 #include <fstream>
 #include <msclr\marshal.h>
 #include <msclr\marshal_cppstd.h>
+#include <cstdio>;
 
 using namespace msclr::interop;
 
@@ -291,12 +292,19 @@ private: System::Void trackBar3_MouseUp(System::Object^ sender, System::Windows:
 private: System::Void load() {
 	
 	std::ofstream fount;
+	std::ofstream fount2;
+	std::fstream fount3;
 	std::string path = "C:/MyEngine/color.json";
+	std::string path2 = "C:/MyEngine/color_Inspector.sig";
 	std::string c = ConvertToASCII(json);
+	fount2.open(path2); 
+
 	fount.open(path);
 	if (fount.is_open()) {
 		fount << c;
 	}
+	fount2.close();
+	remove(path2.c_str());
 }
 private: System::Void panel1_BackColorChanged(System::Object^ sender, System::EventArgs^ e) {
 	

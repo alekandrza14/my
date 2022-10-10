@@ -68,10 +68,14 @@ namespace Color_inspector
         }
         public void gen()
         {
-            ц = new Цвет((byte)trackBar1.Value, (byte)trackBar2.Value, (byte)trackBar3.Value);
-            ц.tojson();
-            Directory.CreateDirectory("C:/MyEngine");
-            File.WriteAllText("C:/MyEngine/color.json",ц.json);
+            
+
+
+                ц = new Цвет((byte)trackBar1.Value, (byte)trackBar2.Value, (byte)trackBar3.Value);
+                ц.tojson();
+                Directory.CreateDirectory("C:/MyEngine");
+                File.WriteAllText("C:/MyEngine/color.json", ц.json);
+            
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
