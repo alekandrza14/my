@@ -133,6 +133,7 @@
     <None Include="rayres\OpenTK.dll.config" />
     <Compile Include="Class1.cs" />
     <Compile Include="Class2.cs" />
+    <Compile Include="init.cs" />
     <Compile Include="functions.cs" />
     <Compile Include="fall.cs" />
     <Compile Include="Component1.cs" />

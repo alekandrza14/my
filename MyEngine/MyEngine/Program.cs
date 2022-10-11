@@ -26,6 +26,7 @@ namespace MyEngine
             Application.SetCompatibleTextRenderingDefault(false);
             Process t5 = new Process();
             settings s = new settings();
+            init i = new init(Application.StartupPath);
             s.start();
             s = s.s;
             if (!s.spp_color_inpector_or_sch_color_inpector)
@@ -39,6 +40,7 @@ namespace MyEngine
             t5.Start();
             Application.Run(new Form1());
             t5.Kill();
+            i.exit();
 
 
         }

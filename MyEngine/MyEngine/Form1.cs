@@ -337,6 +337,7 @@ namespace MyEngine
             tr = !tr;
         }
 
+        bool g5 =false;
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
             if (!File.Exists("C:/MyEngine/color_Inspector.sig"))
@@ -356,6 +357,68 @@ namespace MyEngine
             {
                 randomwindow();
             }
+            
+            if (File.Exists("C:/MyEngine/input_forward.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() + camera.Target);
+                if (true)
+                {
+                    g5 = true;
+                }
+            }
+            if (File.Exists("C:/MyEngine/input_back.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() - camera.Target);
+                if (true)
+                {
+                    g5 = true;
+                }
+
+            }
+            if (File.Exists("C:/MyEngine/input_right.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
+                if (true)
+                {
+                    g5 = true;
+                }
+            }
+            if (File.Exists("C:/MyEngine/input_left.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
+                if (true)
+                {
+                    g5 = true;
+                }
+            }
+            if (File.Exists("C:/MyEngine/input_up.sig"))
+            {
+                vip.pos[1] += 100f * delta4;
+                if (true)
+                {
+                    g5 = true;
+                }
+            }
+            if (File.Exists("C:/MyEngine/input_down.sig"))
+            {
+                vip.pos[1] -= 100f * delta4;
+                if (true)
+                {
+                    g5 = true;
+                }
+            }
+            
+            if (g5 && !File.Exists("C:/MyEngine/input_sig.sig"))
+            {
+                File.Delete("C:/MyEngine/input_back.sig");
+                File.Delete("C:/MyEngine/input_right.sig");
+                File.Delete("C:/MyEngine/input_left.sig");
+                File.Delete("C:/MyEngine/input_up.sig");
+                File.Delete("C:/MyEngine/input_down.sig");
+                File.Delete("C:/MyEngine/input_forward.sig");
+                g5 = false;
+            }
+            
             OpenGL gl = this.openGLControl1.OpenGL;
 
             
@@ -505,6 +568,8 @@ namespace MyEngine
 
         private void NewMethod1(OpenGL gl)
         {
+            
+            
             for (int i = 0; i < f.Count; i++)
             {
 
