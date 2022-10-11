@@ -75,7 +75,7 @@ namespace MyEngine
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openGLControl1.Name = "openGLControl1";
-            this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
+            this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_0;
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl1.Size = new System.Drawing.Size(804, 441);

@@ -208,6 +208,7 @@ namespace MyEngine
 
                 );
             g1[g1.Count - 1].vis.SetVector4(new Vector4(10, 10, 10, 10));
+            
         }
 
 
@@ -615,7 +616,6 @@ namespace MyEngine
                             gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
 
                             v33*= v32;
-
                             gl.Vertex(v32.X * g1[i3].vis.GetVector4().X,
                                     v32.Y * g1[i3].vis.GetVector4().Y,
                                     v32.Z * g1[i3].vis.GetVector4().Z);
@@ -907,33 +907,31 @@ namespace MyEngine
         }
 
         private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
-        { /*
+        { 
             OpenGL gl = this.openGLControl1.OpenGL;
 
 
 
             gl.Clear(OpenGL.GL_DEPTH_TEST);
-            gl.LookAt(0, 0, 0, 0, 0, -1000, 0, 1, 0);
-            float[] global_ambient = new float[] { 0.5f, 0.5f, 0.5f, 1.0f };
-            float[] light0pos = new float[] { 0f , 5f, 10f, 1f};
-            float[] light0ambient = new float[] { 0.2f, 0.2f, 0.2f, 1.0f };
-            float[] light0dif = new float[] { 0.3f, 0.3f, 0.3f, 1.0f };
-            float[] light0sec = new float[] { 0.8f, 0.8f, 0.8f, 1.0f };
 
-            float[] lmodel = new float[] { 0.2f, 0.2f, 0.2f, 1.0f };
 
-          //  gl.LightModel(OpenGL.GL_LIGHT_MODEL_AMBIENT, lmodel);
 
-            gl.LightModel(OpenGL.GL_LIGHT_MODEL_AMBIENT, global_ambient);
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, light0pos);
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, light0ambient);
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_DIFFUSE, light0dif);
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_SPECULAR, light0sec);
+            
+            List<float> f = new List<float>();
+            
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, new float[] {(float)Math.Sin( vip.GetVector4().X), (float)Math.Sin(vip.GetVector4().Y), (float)Math.Sin(vip.GetVector4().Z),0f,1f,0f,0f,1f,0f});
+            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, new float[] { 1f, 1f, 1f, 1f });
             gl.Enable(OpenGL.GL_LIGHTING);
+            gl.Enable(OpenGL.GL_AMBIENT);
             gl.Enable(OpenGL.GL_LIGHT0);
+            gl.Flush();
 
-            gl.ShadeModel(OpenGL.GLU_SMOOTH);
-            */
+
+
+
+            // gl.Enable(OpenGL.GL_DIFFUSE);
+            // gl.ShadeModel(OpenGL.GL_SMOOTH);
+
         }
     }
     public class onclear
