@@ -48,6 +48,11 @@ namespace MyEngine
     public class Vectorinf
     {
         public string json;
+        public Vectorinf fromjson(string json)
+        {
+            Vectorinf f = System.Text.Json.JsonSerializer.Deserialize<Vectorinf>(json);
+            return f;
+        }
         public string tojson()
         {
             json = System.Text.Json.JsonSerializer.Serialize<Vectorinf>(this);

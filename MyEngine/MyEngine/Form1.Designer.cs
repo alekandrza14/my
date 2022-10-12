@@ -156,6 +156,7 @@ namespace MyEngine
             this.button2.TabIndex = 10;
             this.button2.Text = "load";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button2_MouseClick);
             // 
             // textBox1
             // 

@@ -1,0 +1,10 @@
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\bin\Debug\netcoreapp3.1\Unauticna.lib.deps.json
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\bin\Debug\netcoreapp3.1\Unauticna.lib.dll
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\bin\Debug\netcoreapp3.1\Unauticna.lib.pdb
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.AssemblyInfo.cs
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.dll
+C:\Users\User\source\repos\my\MyEngine\Unauticna.lib\obj\Debug\netcoreapp3.1\Unauticna.lib.pdb

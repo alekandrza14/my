@@ -7,10 +7,55 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using ObjParser;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace MyEngine
 {
-    
+
+    public class DubObject
+    {
+        public string[] json1;
+        [JsonPropertyName("vector")]
+        public Vectorinf vi = new Vectorinf(new float[0]{
+        });
+        [JsonPropertyName("vector2")]
+        public Vectorinf vis = new Vectorinf(new float[4]{1,1,1,1
+        });
+        [JsonPropertyName("vector3")]
+        public Vectorinf dvi = new Vectorinf(new float[5]{0,0,0,0,0
+        });
+        [JsonPropertyName("dop")]
+        public string[] json { get; set; }
+
+
+       
+
+        [JsonPropertyName("model_id")]
+        public string model { get; set; }
+
+        
+        public Цвет цвет = new Цвет(0, 0, 0);
+        [JsonPropertyName("anim_id")]
+        public int typeanim { get; set; }
+        public GameObject load()
+        {
+            json1 = json;
+            цвет = цвет.fromjson(json1[0]);
+           vi = vi.fromjson(json1[1]);
+            vis = vis.fromjson(json1[2]);
+            dvi = dvi.fromjson(json1[3]);
+            GameObject g = new GameObject(vi,model);
+            g.цвет = цвет;
+            g.vi = vi;
+            g.vis = vis;
+            g.dvi = dvi;
+            g.json = json;
+            g.typeanim = typeanim;
+            g.model = model;
+            return g;
+
+        }
+    }
     public class GameObject
     {
         [JsonPropertyName("vector")]
@@ -24,6 +69,8 @@ namespace MyEngine
         });
         [JsonPropertyName("dop")]
         public string[] json { get; set; }
+
+        public string[] json1;
         public List<string> jsons = new List<string>();
         public void Save()
         {
@@ -32,6 +79,11 @@ namespace MyEngine
             jsons.Add(vis.tojson());
             jsons.Add(dvi.tojson());
             json = jsons.ToArray();
+        }
+        public void load(GameObject g,DubObject d)
+        {
+            g = d.load();
+
         }
 
 
@@ -48,9 +100,9 @@ namespace MyEngine
                 anim.play(dvi,t,speed);
             }
         }
-        public void setцвет(Цвет ргб)
+        public void setцвет(Цвет сзк)
         {
-            цвет = ргб;
+            цвет = сзк;
 
 
         }
@@ -138,7 +190,6 @@ namespace MyEngine
         public object type;
         [JsonPropertyName("model_id")]
         public string model { get; set; }
-        [JsonPropertyName("color")]
         public Цвет цвет = new Цвет(0, 0, 0);
         public bool init;
         [JsonPropertyName("anim_id")]

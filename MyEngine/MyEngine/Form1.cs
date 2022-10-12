@@ -42,6 +42,7 @@ namespace MyEngine
         public bool playerisdye;
         Component1 c = new Component1();
         List<GameObject> g1 = new List<GameObject>();
+        List<GameObject> g2 = new List<GameObject>();
         public Point s;
         public bool tr;
         public int e1;
@@ -646,7 +647,25 @@ namespace MyEngine
         private void NewMethod2(OpenGL gl)
         {
             
-            int cs1 = cs;
+            int cs1 = cs; if (g2.Count != 0)
+            {
+
+                g1.Clear(); if (true)
+                {
+                    for (int i3 = 0; i3 < g2.Count; i3++)
+                    {
+
+                        g1.Add(g2.ToArray()[i3]);
+                    }
+                        textBox1.Text = g1[0].vi.pos[0].ToString() + g1[0].vi.pos[1].ToString() + g1[0].vi.pos[2].ToString() + g1[0].vi.pos[3].ToString();
+                    if (true)
+                    {
+
+
+                        g2.Clear();
+                    }
+                }
+            }
             for (int i3 = 0; i3 < g1.Count; i3++)
             {
                 frame++;
@@ -655,10 +674,10 @@ namespace MyEngine
                 gl.LoadIdentity();
                 Vector3 v3 = Vector3.Transform(new Vector3(1,1,1) ,Matrix4x4.CreateFromQuaternion(rot));
                 label1.Text = "pos xyzw :" + vip.pos[0] +"/" + vip.pos[1] + "/"+ +vip.pos[2] + "/" + vip.pos[3];
-                
-                gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2],
+                if (g1.Count != 0)
+                    gl.LookAt(vip.pos[0], vip.pos[1], vip.pos[2],
                     camera.Target.X* 6.28f * (Vector3.Distance(Vector3.Zero, vip.GetVector3()) / 1.25f), camera.Target.Y * 6.28f * (Vector3.Distance(Vector3.Zero, vip.GetVector3()) / 1.25f), camera.Target.Z * 6.28f *( Vector3.Distance(Vector3.Zero, vip.GetVector3())/ 1.25f), camera.Up.X, camera.Up.Y, camera.Up.Z);
-                
+                if(g1.Count != 0)
                 gl.Translate(g1[i3].vi.pos[0]+ g1[i3].dvi.pos[0], g1[i3].vi.pos[1] + g1[i3].dvi.pos[1], g1[i3].vi.pos[2] + g1[i3].dvi.pos[2]);
                 gl.Color(1f, 1f, 1f);
                 if (cs1 == 3)
@@ -701,13 +720,14 @@ namespace MyEngine
 
                     gl.Begin(OpenGL.GL_TRIANGLES);
                 }
-                if (g1[i3].цвет.color1 != 0 || g1[i3].цвет.color2 != 0 || g1[i3].цвет.color3 != 0 )
+                if (g1.Count != 0)
+                    if (g1[i3].цвет.color1 != 0 || g1[i3].цвет.color2 != 0 || g1[i3].цвет.color3 != 0 )
                 {
 
                     gl.Color(((float)g1[i3].цвет.color1)/256, ((float)g1[i3].цвет.color2) / 256, ((float)g1[i3].цвет.color3) / 256);
                 }
-
-                for (int i = 0; i < g1[i3].f.Count; i++)
+                if (g1.Count != 0)
+                    for (int i = 0; i < g1[i3].f.Count; i++)
                 {
 
                     for (int i2 = 0; i2 < g1[i3].f[i].VertexIndexList.Length; i2++)
@@ -802,12 +822,76 @@ namespace MyEngine
 
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
-            
 
+            /*
+             File.Delete("C:/MyEngine/input_back.sig");
+                File.Delete("C:/MyEngine/input_nsig1.sig");
+             File.Delete("C:/MyEngine/input_right.sig");
+                File.Delete("C:/MyEngine/input_nsig2.sig");
+            
+                File.Delete("C:/MyEngine/input_left.sig");
+
+                File.Delete("C:/MyEngine/input_nsig3.sig");
+           
+                File.Delete("C:/MyEngine/input_up.sig");
+                File.Delete("C:/MyEngine/input_nsig4.sig");
+            
+                File.Delete("C:/MyEngine/input_down.sig");
+                File.Delete("C:/MyEngine/input_nsig5.sig");
+           
+                File.Delete("C:/MyEngine/input_forward.sig");
+
+                File.Delete("C:/MyEngine/input_nsig.sig");
+           
+                File.Delete("C:/MyEngine/input_forward1.sig");
+
+
+          
+                File.Delete("C:/MyEngine/input_back1.sig");
+            
+                File.Delete("C:/MyEngine/input_right1.sig");
+            
+                File.Delete("C:/MyEngine/input_left1.sig");
+            */
             if (e.KeyCode == Keys.D)
             {
-                vip.SetVector3t(vip.GetVector3t()+ OpenTK.Vector3.Cross(camera.Target,new OpenTK.Vector3(0,1,0)));
+                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
 
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                File.Delete("C:/MyEngine/input_back.sig");
+                File.Delete("C:/MyEngine/input_nsig1.sig");
+                File.Delete("C:/MyEngine/input_right.sig");
+                File.Delete("C:/MyEngine/input_nsig2.sig");
+
+                File.Delete("C:/MyEngine/input_left.sig");
+
+                File.Delete("C:/MyEngine/input_nsig3.sig");
+
+                File.Delete("C:/MyEngine/input_up.sig");
+                File.Delete("C:/MyEngine/input_nsig4.sig");
+
+                File.Delete("C:/MyEngine/input_down.sig");
+                File.Delete("C:/MyEngine/input_nsig5.sig");
+
+                File.Delete("C:/MyEngine/input_forward.sig");
+
+                File.Delete("C:/MyEngine/input_nsig.sig");
+
+                File.Delete("C:/MyEngine/input_forward1.sig");
+
+
+
+                File.Delete("C:/MyEngine/input_back1.sig");
+
+                File.Delete("C:/MyEngine/input_right1.sig");
+
+                File.Delete("C:/MyEngine/input_left1.sig");
+                vip = new Vectorinf(new float[4]
+        {
+            0,2,-4,8
+        });
             }
 
             if (e.KeyCode == Keys.A)
@@ -1044,6 +1128,29 @@ namespace MyEngine
 
             // gl.Enable(OpenGL.GL_DIFFUSE);
             // gl.ShadeModel(OpenGL.GL_SMOOTH);
+
+        }
+
+        private void button2_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            
+            g2.Clear();
+            DubObject[] n = JsonSerializer.Deserialize<DubObject[]>(File.ReadAllText("demosave/save.json")).ToArray();
+            GameObject[] g6 = new GameObject[n.Length];
+            for (int i = 0; i < n.Length; i++)
+            {
+              g6[i] =  n[i].load();
+
+
+            }
+            
+            for (int i = 0;i<n.Length;i++)
+            {
+
+
+                g2.Add(g6[i]);
+            }
 
         }
     }

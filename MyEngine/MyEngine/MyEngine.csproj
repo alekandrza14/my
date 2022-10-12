@@ -127,6 +127,10 @@
     <Reference Include="Toe.Math, Version=1.4.0.0, Culture=neutral, PublicKeyToken=b030cf4fed5afa1a, processorArchitecture=MSIL">
       <HintPath>..\packages\Toe.Math.1.4.0\lib\portable-net451+netcore451+MonoAndroid+Xamarin.iOS+MonoTouch\Toe.Math.dll</HintPath>
     </Reference>
+    <Reference Include="Unauticna.lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\netcoreapp3.1\Unauticna.lib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="OpenTK.dll.config" />
