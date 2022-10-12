@@ -357,65 +357,113 @@ namespace MyEngine
             {
                 randomwindow();
             }
-            
+
             if (File.Exists("C:/MyEngine/input_forward.sig"))
             {
-                vip.SetVector3t(vip.GetVector3t() + camera.Target);
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.SetVector3t(vip.GetVector3t() + camera.Target * 3);
+
             }
             if (File.Exists("C:/MyEngine/input_back.sig"))
             {
-                vip.SetVector3t(vip.GetVector3t() - camera.Target);
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.SetVector3t(vip.GetVector3t() - camera.Target * 3);
+
 
             }
             if (File.Exists("C:/MyEngine/input_right.sig"))
             {
-                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
+
             }
             if (File.Exists("C:/MyEngine/input_left.sig"))
             {
-                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
+
+            }
+            if (File.Exists("C:/MyEngine/input_forward1.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() + camera.Target * 3);
+
+            }
+            if (File.Exists("C:/MyEngine/input_back1.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() - camera.Target * 3);
+
+
+            }
+            if (File.Exists("C:/MyEngine/input_right1.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
+
+            }
+            if (File.Exists("C:/MyEngine/input_left1.sig"))
+            {
+                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
+
             }
             if (File.Exists("C:/MyEngine/input_up.sig"))
             {
-                vip.pos[1] += 100f * delta4;
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.pos[1] += 100f * delta4 * 3;
+                
             }
             if (File.Exists("C:/MyEngine/input_down.sig"))
             {
-                vip.pos[1] -= 100f * delta4;
-                if (true)
-                {
-                    g5 = true;
-                }
+                vip.pos[1] -= 100f * delta4 * 3;
+               
             }
             
-            if (g5 && !File.Exists("C:/MyEngine/input_sig.sig"))
+            if (!File.Exists("C:/MyEngine/input_sig.sig"))
             {
-                File.Delete("C:/MyEngine/input_back.sig");
-                File.Delete("C:/MyEngine/input_right.sig");
-                File.Delete("C:/MyEngine/input_left.sig");
-                File.Delete("C:/MyEngine/input_up.sig");
-                File.Delete("C:/MyEngine/input_down.sig");
-                File.Delete("C:/MyEngine/input_forward.sig");
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig1.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_back.sig");
+                    File.Delete("C:/MyEngine/input_nsig1.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig2.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_right.sig");
+                    File.Delete("C:/MyEngine/input_nsig2.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig3.sig"))
+                {
+                        File.Delete("C:/MyEngine/input_left.sig");
+
+                    File.Delete("C:/MyEngine/input_nsig3.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig4.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_up.sig");
+                    File.Delete("C:/MyEngine/input_nsig4.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig5.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_down.sig");
+                    File.Delete("C:/MyEngine/input_nsig5.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_forward.sig");
+
+                    File.Delete("C:/MyEngine/input_nsig.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_forward1.sig");
+
+                    
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_back1.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_right1.sig");
+                }
+                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                {
+                    File.Delete("C:/MyEngine/input_left1.sig");
+
+                }
                 g5 = false;
             }
             
