@@ -1,0 +1,9 @@
+C:\Users\User\source\repos\Unauticna\Unauticna\bin\Debug\Unauticna.dll
+C:\Users\User\source\repos\Unauticna\Unauticna\bin\Debug\Unauticna.pdb
+C:\Users\User\source\repos\Unauticna\Unauticna\obj\Debug\Unauticna.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Unauticna\Unauticna\obj\Debug\Unauticna.dll
+C:\Users\User\source\repos\Unauticna\Unauticna\obj\Debug\Unauticna.pdb
+C:\Users\User\source\repos\Unauticna\Uns test\bin\Debug\Unauticna.dll
+C:\Users\User\source\repos\Unauticna\Uns test\bin\Debug\Unauticna.pdb
+C:\Users\User\source\repos\Unauticna\Uns test\lib\Unauticna.dll
+C:\Users\User\source\repos\Unauticna\Uns test\lib\Unauticna.pdb
