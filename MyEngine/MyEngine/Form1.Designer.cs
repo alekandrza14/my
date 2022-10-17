@@ -117,6 +117,7 @@ namespace MyEngine
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 45);
             this.trackBar1.TabIndex = 6;
+            this.trackBar1.Visible = false;
             // 
             // trackBar2
             // 
@@ -127,6 +128,7 @@ namespace MyEngine
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(104, 45);
             this.trackBar2.TabIndex = 7;
+            this.trackBar2.Visible = false;
             // 
             // trackBar3
             // 
@@ -137,6 +139,7 @@ namespace MyEngine
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(104, 45);
             this.trackBar3.TabIndex = 8;
+            this.trackBar3.Visible = false;
             // 
             // button1
             // 

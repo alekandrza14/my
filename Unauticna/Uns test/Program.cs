@@ -11,19 +11,46 @@ namespace Uns_test
     {
         static public void Main(string[] args)
         {
+            bool exit = false;
             unscript t2 = new unscript();
             t2.ins = "main.uns";
             t2.Start();
             unscript t = new unscript();
             t.ins = t2.outs2[0];
             t.Start();
-          string s = Console.ReadLine();
-            if (s == "GetVar?")
+            while (!exit)
             {
 
-                t.GetVarMessange();
+
+                string s = Console.ReadLine();
+                if (s == "GetVar?")
+                {
+
+                    t.GetVarMessange();
+                }
+                if (s == "Clear")
+                {
+
+                    Console.Clear();
+                }
+                if (s == "Reset?!")
+                {
+
+                    Console.Clear();
+                    unscript r2 = new unscript();
+                    r2.ins = "main.uns";
+                    r2.Start();
+                    
+                    t.ins = r2.outs2[0];
+                    t.Start();
+                }
+                if (s == "Exit")
+                {
+
+                    exit = true;
+                }
             }
-            Console.ReadLine();
+            
         }
     }
 }

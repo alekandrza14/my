@@ -8,3 +8,13 @@ C:\Users\User\source\repos\Unauticna\Uns test\obj\Debug\Uns test.csproj.CopyComp
 C:\Users\User\source\repos\Unauticna\Uns test\obj\Debug\Uns test.exe
 C:\Users\User\source\repos\Unauticna\Uns test\obj\Debug\Uns test.pdb
 C:\Users\User\source\repos\Unauticna\Uns test\bin\Debug\Unauticna.pdb
+C:\Users\User\source\repos\my\Unauticna\Uns test\bin\Debug\Uns test.exe.config
+C:\Users\User\source\repos\my\Unauticna\Uns test\bin\Debug\Uns test.exe
+C:\Users\User\source\repos\my\Unauticna\Uns test\bin\Debug\Uns test.pdb
+C:\Users\User\source\repos\my\Unauticna\Uns test\bin\Debug\Unauticna.dll
+C:\Users\User\source\repos\my\Unauticna\Uns test\bin\Debug\Unauticna.pdb
+C:\Users\User\source\repos\my\Unauticna\Uns test\obj\Debug\Uns test.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\Unauticna\Uns test\obj\Debug\Uns test.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\my\Unauticna\Uns test\obj\Debug\Uns test.csproj.CopyComplete
+C:\Users\User\source\repos\my\Unauticna\Uns test\obj\Debug\Uns test.exe
+C:\Users\User\source\repos\my\Unauticna\Uns test\obj\Debug\Uns test.pdb

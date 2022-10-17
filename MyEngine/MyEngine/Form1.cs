@@ -63,6 +63,7 @@ namespace MyEngine
         Physics physics;
         Render render;
         public float delta4;
+        public Vector3 wrot = new Vector3(0.12f,0,0);
 
         System.Timers.Timer inputUpdateTimer;
 
@@ -735,11 +736,25 @@ namespace MyEngine
 
                         if (Vector4.Distance(vip.GetVector4(), g1[i3].vi.GetVector4())<100+ Vector4.Distance( g1[i3].vis.GetVector4(),Vector4.Zero))
                         {
+                                Vector4 v4 = Vector4.One;
+                                Vector2 lep = new Vector2(1, 0);
+                                Vector2 leb = new Vector2(0, 1);
+                                Vector2 lerp1 = Vector2.Lerp(lep, leb, wrot.X);
+                                v4.X += lerp1.X - lerp1.Y;
+                                v4.W += lerp1.Y - lerp1.X;
+                                v4.W += 0.5f;
+                                float wpos = vip.pos[3] - g1[i3].vi.pos[3];
+                                float wz = wpos;
+                                if (wpos > 0)
+                                {
+                                    wz = -(vip.pos[3] - g1[i3].vi.pos[3]);
+                                }
+                                Vector3 v35 = new Vector3(v4.X-v4.W, v4.Y, v4.Z);
 
 
-                            Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[0] * (vip.pos[3] - g1[i3].vi.pos[3]),
-                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[1] * (vip.pos[3] - g1[i3].vi.pos[3]),
-                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z + (vip.pos[3] - g1[i3].vi.pos[3])) + vip.pos[2] * (vip.pos[3] - g1[i3].vi.pos[3]));
+                                Vector3 v32 = new Vector3(((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X * wz),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y * wz),
+                                ((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z * wz));
                             Vector3 v33 = new Vector3((float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].X,
                                  (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Y,
                                  (float)g1[i3].v[g1[i3].f[i].VertexIndexList[i2] - 1].Z);
@@ -748,7 +763,8 @@ namespace MyEngine
 
                             gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
 
-                            v33*= v32;
+                            v32+= v33;
+                                v32 *= v35;
                             gl.Vertex(v32.X * g1[i3].vis.GetVector4().X,
                                     v32.Y * g1[i3].vis.GetVector4().Y,
                                     v32.Z * g1[i3].vis.GetVector4().Z);
@@ -901,12 +917,12 @@ namespace MyEngine
             }
             if (e.KeyCode == Keys.Z)
             {
-                vip.pos[3] += delta4/4;
+                vip.pos[3] += delta4;
             }
 
             if (e.KeyCode == Keys.X)
             {
-                vip.pos[3] -= delta4 / 4;
+                vip.pos[3] -= delta4;
             }
             if (e.KeyCode == Keys.F1)
             {
