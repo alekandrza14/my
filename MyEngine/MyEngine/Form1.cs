@@ -29,7 +29,7 @@ namespace MyEngine
             new Enemys(true),new Enemys(true,new Point(300,64))
         };
 
-        
+
         public Point size3 = new Point(30, 20);
         public Quaternion rot;
         public int x; public int y;
@@ -43,6 +43,7 @@ namespace MyEngine
         Component1 c = new Component1();
         List<GameObject> g1 = new List<GameObject>();
         List<GameObject> g2 = new List<GameObject>();
+        List<GameObject> g3 = new List<GameObject>();
         public Point s;
         public bool tr;
         public int e1;
@@ -53,7 +54,7 @@ namespace MyEngine
         public List<ObjParser.Types.TextureVertex> vt = new List<ObjParser.Types.TextureVertex>();
         public float narst; public float narst2;
         public float oldpos = 400;
-        public float oldpos2 = 200; 
+        public float oldpos2 = 200;
         public float oldspeed = 0;
         public float oldspeed2 = 0;
         public float bgup = -20; public float bgsizex = 15; public float bgsizey = 8;
@@ -63,7 +64,7 @@ namespace MyEngine
         Physics physics;
         Render render;
         public float delta4;
-        public Vector3 wrot = new Vector3(0.12f,0,0);
+        public Vector3 wrot = new Vector3(0.12f, 0, 0);
 
         System.Timers.Timer inputUpdateTimer;
 
@@ -79,8 +80,8 @@ namespace MyEngine
                     vip.GetVector3t(),
                     new OpenTK.Vector3(0, 0, 1),
                     new OpenTK.Vector3(0, 1, 0)
-                    ); 
-            
+                    );
+
             physics = new Physics();
             motionCtrl = new FpsController();
 
@@ -93,13 +94,13 @@ namespace MyEngine
         Ray motionStep = new Ray();
         private void UpdateInput(object sender, System.Timers.ElapsedEventArgs e)
         {
-            
+
             camera.Origin = vip.GetVector3t();
             float delta = (e.SignalTime.Ticks - lastTicks) / 10000000.0f;
             lastTicks = e.SignalTime.Ticks;
             physics.GlobalTime += delta;
             delta4 = delta;
-            
+
             // update player input (keyboard_wasd+space+shift + mouse-look)
             if (ondrag)
             {
@@ -108,30 +109,30 @@ namespace MyEngine
                 motionStep = motionCtrl.Update(delta, camera.RayCopy);
             }
 
-                // gravity free fall
-                /*
-                OpenTK.Vector3 freeFallVector = physics.Gravity(
-                    delta,
-                    camera.RayCopy,
-                    Const.PLAYER_HIT_RADIUS,
-                  motionStep.Origin.Y > 0
-                    );*/
+            // gravity free fall
+            /*
+            OpenTK.Vector3 freeFallVector = physics.Gravity(
+                delta,
+                camera.RayCopy,
+                Const.PLAYER_HIT_RADIUS,
+              motionStep.Origin.Y > 0
+                );*/
 
-                // motionStep.Origin += freeFallVector;
+            // motionStep.Origin += freeFallVector;
 
-                // wall collide
-                /*
-                float sd = physics.CastRay(
-                    camera.Origin,
-                    OpenTK.Vector3.NormalizeFast(motionStep.Origin)
-                    );
-                */
+            // wall collide
+            /*
+            float sd = physics.CastRay(
+                camera.Origin,
+                OpenTK.Vector3.NormalizeFast(motionStep.Origin)
+                );
+            */
 
-                // when hit the wall
+            // when hit the wall
 
-                camera.Target = motionStep.Target;    // view only
-                // smooth wall sliding
-                
+            camera.Target = motionStep.Target;    // view only
+                                                  // smooth wall sliding
+
 
         }
         public Vectorinf vi1 = new Vectorinf(new float[4]
@@ -147,15 +148,15 @@ namespace MyEngine
         {
             0,2,-4,8
         });
-        
+
 
         public float rtri;
         public float rquad;
-        
+
         bool norm = false;
         bool ondrag;
-        
 
+        MyLogic.Main m = new MyLogic.Main();
         public Form1()
         {
 
@@ -195,10 +196,11 @@ namespace MyEngine
                 }
                 )
                 , "2")
-                
-                    
+
+
                 );
-            g1[g1.Count-1].typeanim = 1;
+            g1[g1.Count - 1].typeanim = 1;
+
             g1.Add(new GameObject(
                 new Vectorinf(new float[4]
                 {
@@ -210,11 +212,39 @@ namespace MyEngine
 
                 );
             g1[g1.Count - 1].vis.SetVector4(new Vector4(10, 10, 10, 10));
-            
+            m.main();
+            for (int i = 0;i<m.gameObjects.Length;i++)
+            {
+
+
+                g3.Add(new GameObject(
+                     new Vectorinf(new float[4]
+                     {
+                    m.gameObjects[i].transform.pos[0]
+                    ,m.gameObjects[i].transform.pos[1]
+                    ,m.gameObjects[i].transform.pos[2]
+                    ,m.gameObjects[i].transform.pos[3]
+                     }
+                     )
+                     , m.gameObjects[i].a.model)
+
+
+                     );
+                g3[g3.Count - 1].vis.SetVector4(new Vector4(1, 1, 1, 1));
+                g3[g3.Count - 1].name = m.gameObjects[i].a.name;
+
+            }
         }
 
+        void reset()
+        {
+            for (int i = 0; i < m.gameObjects.Length; i++)
+            {
+                g1.Add(g3[i]);
+            }
+        }
 
-        Graphics g;
+            Graphics g;
         Point click;
         
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -342,17 +372,16 @@ namespace MyEngine
         bool g5 =false;
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
+            // m.UPDATE();
             if (!File.Exists("C:/MyEngine/color_Inspector.sig"))
             {
                 if (File.Exists("C:/MyEngine/color.json"))
                 {
 
 
-                    Цвет ц1 = new Цвет(0, 0, 0);
+
                     ц1 = ц1.fromjson(File.ReadAllText("C:/MyEngine/color.json"));
-                    trackBar1.Value = ц1.color1;
-                    trackBar2.Value = ц1.color2;
-                    trackBar3.Value = ц1.color3;
+
                 }
             }
             if (tr == true)
@@ -667,11 +696,37 @@ namespace MyEngine
                     }
                 }
             }
+
+
+           
+
+
+                m.UPDATE();
+            
+            
+            frame++;
             for (int i3 = 0; i3 < g1.Count; i3++)
             {
-                frame++;
+                for (int i = 0; i < m.gameObjects.Length; i++)
+                {
+
+                    if (g1[i3].name == m.gameObjects[i].a.name && m.gameObjects[i].up1 == MyLogic.updata.transform)
+                    {
+                        g1[i3].dvi.pos = m.OutPut().pos;
+                    }
+                    if (g1[i3].name == m.gameObjects[i].a.name && m.gameObjects[i].up1 == MyLogic.updata.scale)
+                    {
+                        g1[i3].vis.pos = m.OutPutscale().pos;
+                    }
+                }
+
+
+
                 g1[i3].activeanim(frame,0.1f);
-                cs1 = int.Parse(g1[i3].model);
+                if (g1.Count != 0)
+                {
+                    cs1 = int.Parse(g1[i3].model);
+                }
                 gl.LoadIdentity();
                 Vector3 v3 = Vector3.Transform(new Vector3(1,1,1) ,Matrix4x4.CreateFromQuaternion(rot));
                 label1.Text = "pos xyzw :" + vip.pos[0] +"/" + vip.pos[1] + "/"+ +vip.pos[2] + "/" + vip.pos[3];
@@ -721,13 +776,19 @@ namespace MyEngine
 
                     gl.Begin(OpenGL.GL_TRIANGLES);
                 }
-                if (g1.Count != 0)
-                    if (g1[i3].цвет.color1 != 0 || g1[i3].цвет.color2 != 0 || g1[i3].цвет.color3 != 0 )
-                {
 
-                    gl.Color(((float)g1[i3].цвет.color1)/256, ((float)g1[i3].цвет.color2) / 256, ((float)g1[i3].цвет.color3) / 256);
-                }
                 if (g1.Count != 0)
+                {
+                    if (g1[i3].цвет.color1 != 0 || g1[i3].цвет.color2 != 0 || g1[i3].цвет.color3 !=0)
+                    {
+
+
+
+                        gl.Color(((float)g1[i3].цвет.color1) / 255, ((float)g1[i3].цвет.color2) / 255, ((float)g1[i3].цвет.color3) / 255);
+
+                    }
+                }
+                    if (g1.Count != 0)
                     for (int i = 0; i < g1[i3].f.Count; i++)
                 {
 
@@ -762,8 +823,8 @@ namespace MyEngine
 
 
                             gl.TexCoord(g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].X, g1[i3].vt[g1[i3].f[i].TextureVertexIndexList[i2] - 1].Y);
-
-                            v32+= v33;
+                                
+                                v32 += v33;
                                 v32 *= v35;
                             gl.Vertex(v32.X * g1[i3].vis.GetVector4().X,
                                     v32.Y * g1[i3].vis.GetVector4().Y,
@@ -874,6 +935,7 @@ namespace MyEngine
                 vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
 
             }
+
             if (e.KeyCode == Keys.Escape)
             {
                 File.Delete("C:/MyEngine/input_back.sig");
@@ -928,7 +990,10 @@ namespace MyEngine
             {
                 tr=!tr;
             }
-
+            if (e.KeyCode == Keys.F2)
+            {
+                reset();
+            }
 
             if (e.KeyCode == Keys.W)
             {
@@ -1037,6 +1102,7 @@ namespace MyEngine
                 }
             }
             
+           
             if (e.KeyCode == Keys.Space)
             {
                 
@@ -1048,13 +1114,14 @@ namespace MyEngine
                     0 + vip.pos[3]
                 })
                     ,cs.ToString()));
-                g1[g1.Count - 1].цвет = new Цвет((byte)trackBar1.Value,(byte)trackBar2.Value, (byte)trackBar3.Value);
+                g1[g1.Count - 1].цвет = new Цвет((byte)ц1.color1,(byte)ц1.color2, (byte)ц1.color3);
+                Console.WriteLine(ц1.color1);
             }
             
 
             
         }
-        
+        Цвет ц1 = new Цвет(0, 0, 0);
         private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
         {
             /*
@@ -1121,23 +1188,23 @@ namespace MyEngine
 
         private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
         { 
-            OpenGL gl = this.openGLControl1.OpenGL;
+          //  OpenGL gl = this.openGLControl1.OpenGL;
 
 
 
-            gl.Clear(OpenGL.GL_DEPTH_TEST);
+          //  gl.Clear(OpenGL.GL_DEPTH_TEST);
 
 
 
             
-            List<float> f = new List<float>();
+           // List<float> f = new List<float>();
             
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, new float[] {(float)Math.Sin( vip.GetVector4().X), (float)Math.Sin(vip.GetVector4().Y), (float)Math.Sin(vip.GetVector4().Z),0f,1f,0f,0f,1f,0f});
-            gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, new float[] { 1f, 1f, 1f, 1f });
-            gl.Enable(OpenGL.GL_LIGHTING);
-            gl.Enable(OpenGL.GL_AMBIENT);
-            gl.Enable(OpenGL.GL_LIGHT0);
-            gl.Flush();
+          //  gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_POSITION, new float[] {(float)Math.Sin( vip.GetVector4().X), (float)Math.Sin(vip.GetVector4().Y), (float)Math.Sin(vip.GetVector4().Z),0f,1f,0f,0f,1f,0f});
+          //  gl.Light(OpenGL.GL_LIGHT0, OpenGL.GL_AMBIENT, new float[] { 1f, 1f, 1f, 1f });
+          //  gl.Enable(OpenGL.GL_LIGHTING);
+          //  gl.Enable(OpenGL.GL_AMBIENT);
+          //  gl.Enable(OpenGL.GL_LIGHT0);
+          //  gl.Flush();
 
 
 

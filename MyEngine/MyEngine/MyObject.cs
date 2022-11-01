@@ -26,9 +26,9 @@ namespace MyEngine
         });
         [JsonPropertyName("dop")]
         public string[] json { get; set; }
+        [JsonPropertyName("name")]
+        public string name { get; set; }
 
-
-       
 
         [JsonPropertyName("model_id")]
         public string model { get; set; }
@@ -50,6 +50,7 @@ namespace MyEngine
             g.vis = vis;
             g.dvi = dvi;
             g.json = json;
+            g.name = name;
             g.typeanim = typeanim;
             g.model = model;
             return g;
@@ -69,6 +70,8 @@ namespace MyEngine
         });
         [JsonPropertyName("dop")]
         public string[] json { get; set; }
+        [JsonPropertyName("name")]
+        public string name { get; set; }
 
         public string[] json1;
         public List<string> jsons = new List<string>();

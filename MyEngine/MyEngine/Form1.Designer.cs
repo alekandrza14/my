@@ -44,10 +44,12 @@ namespace MyEngine
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.trackBar4 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -171,6 +173,16 @@ namespace MyEngine
             this.textBox1.Size = new System.Drawing.Size(243, 25);
             this.textBox1.TabIndex = 11;
             // 
+            // trackBar4
+            // 
+            this.trackBar4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar4.BackColor = System.Drawing.Color.Black;
+            this.trackBar4.Location = new System.Drawing.Point(700, 0);
+            this.trackBar4.Maximum = 3;
+            this.trackBar4.Name = "trackBar4";
+            this.trackBar4.Size = new System.Drawing.Size(104, 45);
+            this.trackBar4.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -180,6 +192,7 @@ namespace MyEngine
             this.BackColor = System.Drawing.Color.Ivory;
             this.BackgroundImage = global::MyEngine.Properties.Resources.hah;
             this.ClientSize = new System.Drawing.Size(804, 441);
+            this.Controls.Add(this.trackBar4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -204,6 +217,7 @@ namespace MyEngine
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,6 +237,7 @@ namespace MyEngine
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TrackBar trackBar4;
     }
 }
 

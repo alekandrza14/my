@@ -1,0 +1,6 @@
+C:\Users\User\source\repos\my\MyEngine\packages\MyLogics\MyLogic.dll
+C:\Users\User\source\repos\my\MyEngine\packages\MyLogics\MyLogic.pdb
+C:\Users\User\source\repos\my\MyEngine\MyLogic\obj\Debug\MyLogic.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\MyEngine\MyLogic\obj\Debug\MyLogic.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\my\MyEngine\MyLogic\obj\Debug\MyLogic.dll
+C:\Users\User\source\repos\my\MyEngine\MyLogic\obj\Debug\MyLogic.pdb
