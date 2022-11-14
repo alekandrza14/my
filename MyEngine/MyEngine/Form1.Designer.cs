@@ -45,6 +45,7 @@ namespace MyEngine
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.trackBar4 = new System.Windows.Forms.TrackBar();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -70,10 +71,11 @@ namespace MyEngine
             // 
             // openGLControl1
             // 
+            this.openGLControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.openGLControl1.DrawFPS = false;
             this.openGLControl1.FrameRate = 25;
-            this.openGLControl1.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.openGLControl1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openGLControl1.Name = "openGLControl1";
@@ -84,6 +86,8 @@ namespace MyEngine
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLInitialized += new System.EventHandler(this.openGLControl1_OpenGLInitialized);
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
+            this.openGLControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.openGLControl1_DragDrop);
+            this.openGLControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.openGLControl1_DragEnter);
             this.openGLControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLControl1_KeyDown);
             this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseDown);
             this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
@@ -178,10 +182,28 @@ namespace MyEngine
             this.trackBar4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar4.BackColor = System.Drawing.Color.Black;
             this.trackBar4.Location = new System.Drawing.Point(700, 0);
-            this.trackBar4.Maximum = 3;
+            this.trackBar4.Maximum = 100;
             this.trackBar4.Name = "trackBar4";
             this.trackBar4.Size = new System.Drawing.Size(104, 45);
             this.trackBar4.TabIndex = 12;
+            this.trackBar4.Value = 50;
+            // 
+            // panel1
+            // 
+            this.panel1.AllowDrop = true;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackgroundImage = global::MyEngine.Properties.Resources.use;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Help;
+            this.panel1.ForeColor = System.Drawing.Color.Transparent;
+            this.panel1.Location = new System.Drawing.Point(726, 363);
+            this.panel1.Name = "panel1";
+            this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.panel1.Size = new System.Drawing.Size(77, 77);
+            this.panel1.TabIndex = 13;
+            this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
+            this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel1_DragEnter);
             // 
             // Form1
             // 
@@ -192,6 +214,7 @@ namespace MyEngine
             this.BackColor = System.Drawing.Color.Ivory;
             this.BackgroundImage = global::MyEngine.Properties.Resources.hah;
             this.ClientSize = new System.Drawing.Size(804, 441);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.trackBar4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
@@ -238,6 +261,7 @@ namespace MyEngine
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TrackBar trackBar4;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

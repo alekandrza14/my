@@ -8,6 +8,7 @@ using System.ComponentModel;
 using ObjParser;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.IO;
 
 namespace MyEngine
 {
@@ -32,8 +33,10 @@ namespace MyEngine
 
         [JsonPropertyName("model_id")]
         public string model { get; set; }
+        [JsonPropertyName("custom_model_id")]
+        public string custom_model { get; set; }
 
-        
+
         public Цвет цвет = new Цвет(0, 0, 0);
         [JsonPropertyName("anim_id")]
         public int typeanim { get; set; }
@@ -53,6 +56,8 @@ namespace MyEngine
             g.name = name;
             g.typeanim = typeanim;
             g.model = model;
+            g.custom_model = custom_model;
+            g = g.resset(vi, custom_model);
             return g;
 
         }
@@ -109,80 +114,106 @@ namespace MyEngine
 
 
         }
-       
+
         public GameObject(Vectorinf vi, string model)
         {
 
 
             this.vi = vi;
             this.model = model;
-            if (model == "0")
-            {
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/cube.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "1")
-            {
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/sphere.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "2")
-            {
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/quad-sphere.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "5")
-            {
-                
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/arua.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "3")
-            {
+            
 
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/pipiis.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "4")
-            {
 
-                var Obj = new Obj();
-                Obj.LoadObj("ресурсы/terrain.obj1");
-                Console.WriteLine(Obj.VertexList.Count.ToString());
-                v = Obj.VertexList;
-                f = Obj.FaceList;
-                vt = Obj.TextureList;
-            }
-            if (model == "6")
-            {
+                if (model == "0")
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/cube.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "1")
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/sphere.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "2")
+                {
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/quad-sphere.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "5")
+                {
 
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/arua.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "3")
+                {
+
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/pipiis.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "4")
+                {
+
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/terrain.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+                if (model == "6")
+                {
+
+                    var Obj = new Obj();
+                    Obj.LoadObj("ресурсы/cat.obj1");
+                    Console.WriteLine(Obj.VertexList.Count.ToString());
+                    v = Obj.VertexList;
+                    f = Obj.FaceList;
+                    vt = Obj.TextureList;
+                }
+
+
+           
+        }
+        public GameObject resset(Vectorinf vi, string custommodel)
+        {
+
+
+            this.vi = vi;
+            this.model = model;
+            this.custom_model = custommodel;
+            Console.WriteLine(custommodel);
+            if (File.Exists("ресурсы/" + custommodel))
+            {
                 var Obj = new Obj();
-                Obj.LoadObj("ресурсы/cat.obj1");
+                Obj.LoadObj("ресурсы/" + custommodel);
                 Console.WriteLine(Obj.VertexList.Count.ToString());
                 v = Obj.VertexList;
                 f = Obj.FaceList;
                 vt = Obj.TextureList;
             }
+            
+           return this;
         }
 
 
@@ -193,6 +224,8 @@ namespace MyEngine
         public object type;
         [JsonPropertyName("model_id")]
         public string model { get; set; }
+        [JsonPropertyName("custom_model_id")]
+        public string custom_model { get; set; }
         public Цвет цвет = new Цвет(0, 0, 0);
         public bool init;
         [JsonPropertyName("anim_id")]

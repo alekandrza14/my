@@ -244,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="My Engie.ico" />
+    <None Include="Resources\use.png" />
     <Content Include="SharpGL.ico" />
     <Content Include="SharpGL.png" />
     <None Include="песок_42 3.png" />

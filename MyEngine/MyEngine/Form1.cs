@@ -362,7 +362,7 @@ namespace MyEngine
             
         }
 
-        
+        float speed;
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -373,134 +373,135 @@ namespace MyEngine
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
         {
             // m.UPDATE();
-            if (!File.Exists("C:/MyEngine/color_Inspector.sig"))
             {
-                if (File.Exists("C:/MyEngine/color.json"))
+                if (!File.Exists("C:/MyEngine/color_Inspector.sig"))
                 {
+                    if (File.Exists("C:/MyEngine/color.json"))
+                    {
 
 
 
-                    ц1 = ц1.fromjson(File.ReadAllText("C:/MyEngine/color.json"));
+                        ц1 = ц1.fromjson(File.ReadAllText("C:/MyEngine/color.json"));
+
+                    }
+                }
+                if (tr == true)
+                {
+                    randomwindow();
+                }
+
+                if (File.Exists("C:/MyEngine/input_forward.sig"))
+                {
+                    vip.SetVector3t(vip.GetVector3t() + camera.Target * 3 * speed);
 
                 }
-            }
-            if (tr == true)
-            {
-                randomwindow();
-            }
-
-            if (File.Exists("C:/MyEngine/input_forward.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() + camera.Target * 3);
-
-            }
-            if (File.Exists("C:/MyEngine/input_back.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() - camera.Target * 3);
-
-
-            }
-            if (File.Exists("C:/MyEngine/input_right.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
-
-            }
-            if (File.Exists("C:/MyEngine/input_left.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
-
-            }
-            if (File.Exists("C:/MyEngine/input_forward1.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() + camera.Target * 3);
-
-            }
-            if (File.Exists("C:/MyEngine/input_back1.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() - camera.Target * 3);
-
-
-            }
-            if (File.Exists("C:/MyEngine/input_right1.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
-
-            }
-            if (File.Exists("C:/MyEngine/input_left1.sig"))
-            {
-                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3, new OpenTK.Vector3(0, 1, 0)));
-
-            }
-            if (File.Exists("C:/MyEngine/input_up.sig"))
-            {
-                vip.pos[1] += 100f * delta4 * 3;
-                
-            }
-            if (File.Exists("C:/MyEngine/input_down.sig"))
-            {
-                vip.pos[1] -= 100f * delta4 * 3;
-               
-            }
-            
-            if (!File.Exists("C:/MyEngine/input_sig.sig"))
-            {
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig1.sig"))
+                if (File.Exists("C:/MyEngine/input_back.sig"))
                 {
-                    File.Delete("C:/MyEngine/input_back.sig");
-                    File.Delete("C:/MyEngine/input_nsig1.sig");
+                    vip.SetVector3t(vip.GetVector3t() - camera.Target * 3 * speed);
+
+
                 }
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig2.sig"))
+                if (File.Exists("C:/MyEngine/input_right.sig"))
                 {
-                    File.Delete("C:/MyEngine/input_right.sig");
-                    File.Delete("C:/MyEngine/input_nsig2.sig");
+                    vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
+
                 }
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig3.sig"))
+                if (File.Exists("C:/MyEngine/input_left.sig"))
                 {
+                    vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
+
+                }
+                if (File.Exists("C:/MyEngine/input_forward1.sig"))
+                {
+                    vip.SetVector3t(vip.GetVector3t() + camera.Target * 3 * speed);
+
+                }
+                if (File.Exists("C:/MyEngine/input_back1.sig"))
+                {
+                    vip.SetVector3t(vip.GetVector3t() - camera.Target * 3 * speed);
+
+
+                }
+                if (File.Exists("C:/MyEngine/input_right1.sig"))
+                {
+                    vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
+
+                }
+                if (File.Exists("C:/MyEngine/input_left1.sig"))
+                {
+                    vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
+
+                }
+                if (File.Exists("C:/MyEngine/input_up.sig"))
+                {
+                    vip.pos[1] += 100f * delta4 * 3 * speed;
+
+                }
+                if (File.Exists("C:/MyEngine/input_down.sig"))
+                {
+                    vip.pos[1] -= 100f * delta4 * 3 * speed;
+
+                }
+
+                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                {
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig1.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_back.sig");
+                        File.Delete("C:/MyEngine/input_nsig1.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig2.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_right.sig");
+                        File.Delete("C:/MyEngine/input_nsig2.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig3.sig"))
+                    {
                         File.Delete("C:/MyEngine/input_left.sig");
 
-                    File.Delete("C:/MyEngine/input_nsig3.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig4.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_up.sig");
-                    File.Delete("C:/MyEngine/input_nsig4.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig5.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_down.sig");
-                    File.Delete("C:/MyEngine/input_nsig5.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_forward.sig");
+                        File.Delete("C:/MyEngine/input_nsig3.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig4.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_up.sig");
+                        File.Delete("C:/MyEngine/input_nsig4.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig5.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_down.sig");
+                        File.Delete("C:/MyEngine/input_nsig5.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_forward.sig");
 
-                    File.Delete("C:/MyEngine/input_nsig.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_forward1.sig");
+                        File.Delete("C:/MyEngine/input_nsig.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_forward1.sig");
 
-                    
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_back1.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_right1.sig");
-                }
-                if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                {
-                    File.Delete("C:/MyEngine/input_left1.sig");
 
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_back1.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_right1.sig");
+                    }
+                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                    {
+                        File.Delete("C:/MyEngine/input_left1.sig");
+
+                    }
+                    g5 = false;
                 }
-                g5 = false;
             }
-            
             OpenGL gl = this.openGLControl1.OpenGL;
 
-            
+            speed = ((float)trackBar4.Value) / 50;
 
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             
@@ -655,7 +656,21 @@ namespace MyEngine
                 for (int i2 = 0; i2 < f[i].VertexIndexList.Length; i2++)
                 {
 
+                    if (f[i].VertexIndexList.Length == 3)
+                    {
 
+                        gl.Begin(OpenGL.GL_TRIANGLES);
+                    }
+                    if (f[i].VertexIndexList.Length == 2)
+                    {
+
+                        gl.Begin(OpenGL.GL_LINES);
+                    }
+                    if (f[i].VertexIndexList.Length == 4)
+                    {
+
+                        gl.Begin(OpenGL.GL_QUADS);
+                    }
 
 
 
@@ -741,6 +756,7 @@ namespace MyEngine
 
                     gl.Color(0f, 1f, 1f);
                 }
+                /*
                 if (cs1 == 0)
                 {
 
@@ -776,6 +792,7 @@ namespace MyEngine
 
                     gl.Begin(OpenGL.GL_TRIANGLES);
                 }
+                */
 
                 if (g1.Count != 0)
                 {
@@ -794,8 +811,22 @@ namespace MyEngine
 
                     for (int i2 = 0; i2 < g1[i3].f[i].VertexIndexList.Length; i2++)
                     {
+                            if (g1[i3].f[i].VertexIndexList.Length == 3)
+                            {
 
-                        if (Vector4.Distance(vip.GetVector4(), g1[i3].vi.GetVector4())<100+ Vector4.Distance( g1[i3].vis.GetVector4(),Vector4.Zero))
+                                gl.Begin(OpenGL.GL_TRIANGLES);
+                            }
+                            if (g1[i3].f[i].VertexIndexList.Length == 2)
+                            {
+
+                                gl.Begin(OpenGL.GL_LINES);
+                            }
+                            if (g1[i3].f[i].VertexIndexList.Length == 4)
+                            {
+
+                                gl.Begin(OpenGL.GL_QUADS);
+                            }
+                            if (Vector4.Distance(vip.GetVector4(), g1[i3].vi.GetVector4())<100+ Vector4.Distance( g1[i3].vis.GetVector4(),Vector4.Zero))
                         {
                                 Vector4 v4 = Vector4.One;
                                 Vector2 lep = new Vector2(1, 0);
@@ -863,40 +894,40 @@ namespace MyEngine
             if (cs == 0)
             {
 
-                gl.Begin(OpenGL.GL_QUADS);
+              //  gl.Begin(OpenGL.GL_QUADS);
             }
             if (cs == 2)
             {
 
-                gl.Begin(OpenGL.GL_QUADS);
+             //   gl.Begin(OpenGL.GL_QUADS);
             }
             if (cs == 3)
             {
 
-                gl.Begin(OpenGL.GL_QUADS);
+              //  gl.Begin(OpenGL.GL_QUADS);
             }
             if (cs == 4)
             {
 
-                gl.Begin(OpenGL.GL_QUADS);
+              //  gl.Begin(OpenGL.GL_QUADS);
             }
             if (cs == 1)
             {
 
-                gl.Begin(OpenGL.GL_TRIANGLES);
+              //  gl.Begin(OpenGL.GL_TRIANGLES);
             }
             if (cs == 5)
             {
 
-                gl.Begin(OpenGL.GL_TRIANGLES);
+              //  gl.Begin(OpenGL.GL_TRIANGLES);
             }
             if (cs == 6)
             {
 
-                gl.Begin(OpenGL.GL_TRIANGLES);
+              //  gl.Begin(OpenGL.GL_TRIANGLES);
             }
         }
-
+        string s5 = "";
         private void openGLControl1_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -932,7 +963,7 @@ namespace MyEngine
             */
             if (e.KeyCode == Keys.D)
             {
-                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
+                vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * speed, new OpenTK.Vector3(0, 1, 0)));
 
             }
 
@@ -974,17 +1005,17 @@ namespace MyEngine
 
             if (e.KeyCode == Keys.A)
             {
-                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target, new OpenTK.Vector3(0, 1, 0)));
+                vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * speed, new OpenTK.Vector3(0, 1, 0)));
                 
             }
             if (e.KeyCode == Keys.Z)
             {
-                vip.pos[3] += delta4;
+                vip.pos[3] += delta4 * speed;
             }
 
             if (e.KeyCode == Keys.X)
             {
-                vip.pos[3] -= delta4;
+                vip.pos[3] -= delta4 * speed;
             }
             if (e.KeyCode == Keys.F1)
             {
@@ -998,22 +1029,22 @@ namespace MyEngine
             if (e.KeyCode == Keys.W)
             {
                 //  vip.pos[2] += 0.3f;
-               vip.SetVector3t(vip.GetVector3t()+camera.Target);
+               vip.SetVector3t(vip.GetVector3t()+camera.Target * speed);
                 
             }
             if (e.KeyCode == Keys.S)
             {
-                vip.SetVector3t(vip.GetVector3t() - camera.Target);
+                vip.SetVector3t(vip.GetVector3t() - camera.Target * speed);
 
                
             }
             if (e.KeyCode == Keys.E)
             {
-                vip.pos[1] += 100f*delta4;
+                vip.pos[1] += 100f*delta4 * speed;
             }
             if (e.KeyCode == Keys.Q)
             {
-                vip.pos[1] -= 100f * delta4;
+                vip.pos[1] -= 100f * delta4 * speed;
             }
             if (e.KeyCode == Keys.U)
             {
@@ -1100,6 +1131,10 @@ namespace MyEngine
                     f = Obj.FaceList;
                     vt = Obj.TextureList;
                 }
+                if (s5.Length != 0)
+                {
+                    s5 = "";
+                }
             }
             
            
@@ -1115,6 +1150,10 @@ namespace MyEngine
                 })
                     ,cs.ToString()));
                 g1[g1.Count - 1].цвет = new Цвет((byte)ц1.color1,(byte)ц1.color2, (byte)ц1.color3);
+                if (File.Exists("ресурсы/"+Path.GetFileName(s5))) {
+                    g1[g1.Count - 1] = g1[g1.Count - 1].resset(g1[g1.Count - 1].vi, Path.GetFileName(s5));
+                    Console.WriteLine("0");
+                }
                 Console.WriteLine(ц1.color1);
             }
             
@@ -1235,6 +1274,69 @@ namespace MyEngine
                 g2.Add(g6[i]);
             }
 
+        }
+       
+
+        private void openGLControl1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files)
+            {
+                s5 = file;
+            }
+        }
+
+        private void openGLControl1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
+            {
+                e.Effect = DragDropEffects.All;
+            }
+        }
+
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files)
+            {
+                s5 = file; if (File.Exists("ресурсы/" + Path.GetFileName(s5)))
+                {
+
+
+                    if (s5.Length != 0)
+                    {
+                        var Obj = new Obj();
+                        Obj.LoadObj("ресурсы/" + Path.GetFileName(s5));
+                        Console.WriteLine(Obj.VertexList.Count.ToString());
+                        v = Obj.VertexList;
+                        f = Obj.FaceList;
+                        vt = Obj.TextureList;
+                    }
+                }
+                else
+                {
+                    File.Copy(s5, "ресурсы/" + Path.GetFileName(s5));
+                    if (s5.Length != 0)
+                    {
+                        var Obj = new Obj();
+                        Obj.LoadObj("ресурсы/" + Path.GetFileName(s5));
+                        Console.WriteLine(Obj.VertexList.Count.ToString());
+                        v = Obj.VertexList;
+                        f = Obj.FaceList;
+                        vt = Obj.TextureList;
+                    }
+                }
+            }
+        }
+
+        private void panel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
+            {
+                e.Effect = DragDropEffects.All;
+            }
         }
     }
     public class onclear
