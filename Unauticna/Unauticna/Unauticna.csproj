@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="data_var.cs" />
+    <Compile Include="core2.cs" />
+    <Compile Include="MainCore.cs" />
     <Compile Include="unscript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

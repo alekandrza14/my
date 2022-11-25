@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,41 @@ namespace Uns_test
     {
         static public void Main(string[] args)
         {
+            MainCore.newfile = "main.uns";
+            if (File.Exists(MainCore.newfile))
+            {
+
+
+                MainCore.newfile = "main.uns";
+                 while (MainCore.Run() != 0)
+                  {
+                
+                  }
+                
+                //  core2 c = new core2();
+                //  c.code = File.ReadAllText(MainCore.newfile);
+                //
+                //  Console.ReadLine();
+                //  c.get();
+                //  Console.WriteLine(MainCore.newfile);
+                //  Console.WriteLine(c.words.ToArray().Length);
+                //  Console.WriteLine(c.code.Length);
+                //  Console.ReadLine();
+                //  c.end();
+                //  c.get();
+                //  
+                //  Console.WriteLine(MainCore.newfile);
+                //  Console.WriteLine(c.words.ToArray().Length);
+                //  Console.WriteLine(c.code.Length);
+                //  Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("file not find");
+                Console.ReadLine();
+            }
+
+            /*
             bool exit = false;
             unscript t2 = new unscript();
             t2.ins = "main.uns";
@@ -50,7 +86,8 @@ namespace Uns_test
                     exit = true;
                 }
             }
-            
+            */
+
         }
     }
 }

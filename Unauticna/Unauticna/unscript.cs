@@ -193,7 +193,8 @@ namespace Unauticna
             }
         }
         public string ins;
-        string pre;
+
+        public string pre;
         string pre1;
         string pre2;
         public List<string> outs = new List<string>();
@@ -345,7 +346,7 @@ namespace Unauticna
                     {
                         v2 = new Vector2(float.Parse(outs3[0]), float.Parse(outs3[1]));
 
-                        Console.WriteLine("vector=" + v2.x + "|" + v2.y);
+                      //  Console.WriteLine("vector=" + v2.x + "|" + v2.y);
                     }
                     outsv.Add(v2);
                     outs3 = new List<string>();

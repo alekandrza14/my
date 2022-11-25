@@ -7,3 +7,9 @@ C:\Users\User\source\repos\Unauticna\Uns test\bin\Debug\Unauticna.dll
 C:\Users\User\source\repos\Unauticna\Uns test\bin\Debug\Unauticna.pdb
 C:\Users\User\source\repos\Unauticna\Uns test\lib\Unauticna.dll
 C:\Users\User\source\repos\Unauticna\Uns test\lib\Unauticna.pdb
+C:\Users\User\source\repos\my\Unauticna\Uns test\lib\Unauticna.dll
+C:\Users\User\source\repos\my\Unauticna\Uns test\lib\Unauticna.pdb
+C:\Users\User\source\repos\my\Unauticna\Unauticna\obj\Debug\Unauticna.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\Unauticna\Unauticna\obj\Debug\Unauticna.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\my\Unauticna\Unauticna\obj\Debug\Unauticna.dll
+C:\Users\User\source\repos\my\Unauticna\Unauticna\obj\Debug\Unauticna.pdb

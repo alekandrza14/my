@@ -1,1 +1,18 @@
-/var vel.uns/+
+.sig;
+num /vel_2,0|0,0/+/var_test/+; 
+num /vel_1,1|0,0/+/var_test2/+; 
+num /vel_12,0|0,0/+/var_testy/+;
+num /vel_0,01|0,0/+/var_reaf/+; 
+(test + test2);
+write test_+_test2_;
+chek_var;
+.sig;
+(test + testy;
+);
+write test_+_testy_;
+chek_var;
+.sig;(test - reaf);
+write test_-_reaf_;
+chek_var;
+.sig;
+..
