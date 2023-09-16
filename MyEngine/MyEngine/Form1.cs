@@ -211,7 +211,7 @@ namespace MyEngine
 
 
                 );
-            g1[g1.Count - 1].vis.SetVector4(new Vector4(10, 10, 10, 10));
+            g1[g1.Count - 1].vis.SetVector4(new Vector4(10, 10, 10, 2));
             m.main();
             for (int i = 0;i<m.gameObjects.Length;i++)
             {
@@ -303,11 +303,44 @@ namespace MyEngine
             click.Y -= size3.Y / 2;
             return click;
         }
+        bool up, down, right, left, forward, backward, kata, ana;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            
-            
-            
+
+            if (e.KeyCode == Keys.E)
+            {
+                up = true;
+            }
+            if (e.KeyCode == Keys.Q)
+            {
+
+                down = true;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                right = true;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                left = true;
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                forward = true;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                backward = true;
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                kata = true;
+            }
+            if (e.KeyCode == Keys.Z)
+            {
+                ana = true;
+            }
+
 
 
         }
@@ -390,114 +423,48 @@ namespace MyEngine
                     randomwindow();
                 }
 
-                if (File.Exists("C:/MyEngine/input_forward.sig"))
+                if (forward)
                 {
                     vip.SetVector3t(vip.GetVector3t() + camera.Target * 3 * speed);
 
                 }
-                if (File.Exists("C:/MyEngine/input_back.sig"))
+                if (backward)
                 {
                     vip.SetVector3t(vip.GetVector3t() - camera.Target * 3 * speed);
 
 
                 }
-                if (File.Exists("C:/MyEngine/input_right.sig"))
+                if (right)
                 {
                     vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
 
                 }
-                if (File.Exists("C:/MyEngine/input_left.sig"))
+                if (left)
                 {
                     vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
 
                 }
-                if (File.Exists("C:/MyEngine/input_forward1.sig"))
-                {
-                    vip.SetVector3t(vip.GetVector3t() + camera.Target * 3 * speed);
-
-                }
-                if (File.Exists("C:/MyEngine/input_back1.sig"))
-                {
-                    vip.SetVector3t(vip.GetVector3t() - camera.Target * 3 * speed);
-
-
-                }
-                if (File.Exists("C:/MyEngine/input_right1.sig"))
-                {
-                    vip.SetVector3t(vip.GetVector3t() + OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
-
-                }
-                if (File.Exists("C:/MyEngine/input_left1.sig"))
-                {
-                    vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * 3 * speed, new OpenTK.Vector3(0, 1, 0)));
-
-                }
-                if (File.Exists("C:/MyEngine/input_up.sig"))
+               
+                if (up)
                 {
                     vip.pos[1] += 100f * delta4 * 3 * speed;
 
                 }
-                if (File.Exists("C:/MyEngine/input_down.sig"))
+                if (down)
                 {
                     vip.pos[1] -= 100f * delta4 * 3 * speed;
 
                 }
-
-                if (!File.Exists("C:/MyEngine/input_sig.sig"))
+                if (ana)
                 {
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig1.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_back.sig");
-                        File.Delete("C:/MyEngine/input_nsig1.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig2.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_right.sig");
-                        File.Delete("C:/MyEngine/input_nsig2.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig3.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_left.sig");
-
-                        File.Delete("C:/MyEngine/input_nsig3.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig4.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_up.sig");
-                        File.Delete("C:/MyEngine/input_nsig4.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig5.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_down.sig");
-                        File.Delete("C:/MyEngine/input_nsig5.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig") && File.Exists("C:/MyEngine/input_nsig.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_forward.sig");
-
-                        File.Delete("C:/MyEngine/input_nsig.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_forward1.sig");
-
-
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_back1.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_right1.sig");
-                    }
-                    if (!File.Exists("C:/MyEngine/input_sig.sig"))
-                    {
-                        File.Delete("C:/MyEngine/input_left1.sig");
-
-                    }
-                    g5 = false;
+                    vip.pos[3] += 4 * delta4 * speed;
                 }
+
+                if (kata)
+                {
+                    vip.pos[3] -= 4 * delta4 * speed;
+                }
+
             }
             OpenGL gl = this.openGLControl1.OpenGL;
 
@@ -836,10 +803,15 @@ namespace MyEngine
                                 v4.W += lerp1.Y - lerp1.X;
                                 v4.W += 0.5f;
                                 float wpos = vip.pos[3] - g1[i3].vi.pos[3];
-                                float wz = wpos;
-                                if (wpos > 0)
+                                float wz = (wpos/ g1[i3].vis.pos[3]);
+                                if (wpos / g1[i3].vis.pos[3] > 0)
                                 {
-                                    wz = -(vip.pos[3] - g1[i3].vi.pos[3]);
+                                    wz = -(vip.pos[3] - g1[i3].vi.pos[3]) / g1[i3].vis.pos[3];
+                                }
+
+                                if (wz < -1)
+                                {
+                                    wz = -1;
                                 }
                                 Vector3 v35 = new Vector3(v4.X-v4.W, v4.Y, v4.Z);
 
@@ -1002,21 +974,46 @@ namespace MyEngine
             0,2,-4,8
         });
             }
+            if (e.KeyCode == Keys.E)
+            {
+                up = true;
+            }
+            if (e.KeyCode == Keys.Q)
+            {
+
+                down = true;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                right = true;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                left = true;
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                forward = true;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                backward = true;
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                kata = true;
+            }
+            if (e.KeyCode == Keys.Z)
+            {
+                ana = true;
+            }
 
             if (e.KeyCode == Keys.A)
             {
                 vip.SetVector3t(vip.GetVector3t() - OpenTK.Vector3.Cross(camera.Target * speed, new OpenTK.Vector3(0, 1, 0)));
                 
             }
-            if (e.KeyCode == Keys.Z)
-            {
-                vip.pos[3] += delta4 * speed;
-            }
-
-            if (e.KeyCode == Keys.X)
-            {
-                vip.pos[3] -= delta4 * speed;
-            }
+           
             if (e.KeyCode == Keys.F1)
             {
                 tr=!tr;
@@ -1218,6 +1215,81 @@ namespace MyEngine
         private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
         {
             ondrag = true;
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.E)
+            {
+                up = false;
+            }
+            if (e.KeyCode == Keys.Q)
+            {
+
+                down = false;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                right = false;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                left = false;
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                forward = false;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                backward = false;
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                kata = false;
+            }
+            if (e.KeyCode == Keys.Z)
+            {
+                ana = false;
+            }
+
+        }
+
+        private void openGLControl1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.E)
+            {
+                up = false;
+            }
+            if (e.KeyCode == Keys.Q)
+            {
+
+                down = false;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                right = false;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                left = false;
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                forward = false;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                backward = false;
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                kata = false;
+            }
+            if (e.KeyCode == Keys.Z)
+            {
+                ana = false;
+            }
         }
 
         private void openGLControl1_MouseUp(object sender, MouseEventArgs e)

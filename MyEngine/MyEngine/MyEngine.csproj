@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>My Engie.ico</ApplicationIcon>
+    <ApplicationIcon>MyEngineN2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -245,6 +245,7 @@
   <ItemGroup>
     <Content Include="My Engie.ico" />
     <None Include="Resources\use.png" />
+    <Content Include="MyEngineN2.ico" />
     <Content Include="SharpGL.ico" />
     <Content Include="SharpGL.png" />
     <None Include="песок_42 3.png" />

@@ -64,16 +64,15 @@ namespace MyEngine
             
             if (File.Exists("app/input_ahk/Input.exe"))
             {
-                input = new Process();
-                input.StartInfo.FileName = a + "/app/input_ahk/Input.exe";
-                input.Start();
+             //   input = new Process();
+              //  input.StartInfo.FileName = a + "/app/input_ahk/Input.exe";
+              //  input.Start();
             }
             
         }
         public void exit()
         {
             
-            input.Kill();
             
         }
     }
