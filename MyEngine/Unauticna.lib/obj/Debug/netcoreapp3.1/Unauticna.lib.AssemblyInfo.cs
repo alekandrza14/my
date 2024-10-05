@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Unauticna.lib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9653ab7f843830c6f26a28d37810864cdeb8373")]
 [assembly: System.Reflection.AssemblyProductAttribute("Unauticna.lib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Unauticna.lib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
