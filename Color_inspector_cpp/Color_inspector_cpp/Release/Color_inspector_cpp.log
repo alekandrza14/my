@@ -1,5 +1,10 @@
-﻿  MyForm.cpp
+﻿  file.cpp
+  MyForm.cpp
 C:\Users\User\source\repos\my\Color_inspector_cpp\Color_inspector_cpp\MyForm.h(5,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  (компиляция исходного файла "MyForm.cpp")
+  
 C:\Users\User\source\repos\my\Color_inspector_cpp\Color_inspector_cpp\MyForm.cpp(8,1): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Создание кода...
   file.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Color_inspector_cpp.vcxproj -> C:\Users\User\source\repos\my\Color_inspector_cpp\Release\Color_inspector_cpp.exe
