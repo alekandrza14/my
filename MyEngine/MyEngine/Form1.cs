@@ -694,11 +694,11 @@ namespace MyEngine
 
                     if (g1[i3].name == m.gameObjects[i].a.name && m.gameObjects[i].up1 == MyLogic.updata.transform)
                     {
-                        g1[i3].dvi.pos = m.OutPut().pos;
+                        g1[i3].dvi.pos = m.OutPut(i).pos;
                     }
                     if (g1[i3].name == m.gameObjects[i].a.name && m.gameObjects[i].up1 == MyLogic.updata.scale)
                     {
-                        g1[i3].vis.pos = m.OutPutscale().pos;
+                        g1[i3].vis.pos = m.OutPutscale(i).pos;
                     }
                 }
 

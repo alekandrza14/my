@@ -1,0 +1,13 @@
+C:\Users\User\source\repos\my\MyEngine\MyHub\bin\Debug\MyHub.exe.config
+C:\Users\User\source\repos\my\MyEngine\MyHub\bin\Debug\MyHub.exe
+C:\Users\User\source\repos\my\MyEngine\MyHub\bin\Debug\MyHub.pdb
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.Form1.resources
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.Properties.Resources.resources
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.csproj.GenerateResource.cache
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.exe
+C:\Users\User\source\repos\my\MyEngine\MyHub\obj\Debug\MyHub.pdb
+C:\Users\User\source\repos\my\MyEngine\MyEngine\bin\Debug\MyHub.exe.config
+C:\Users\User\source\repos\my\MyEngine\MyEngine\bin\Debug\MyHub.exe
+C:\Users\User\source\repos\my\MyEngine\MyEngine\bin\Debug\MyHub.pdb

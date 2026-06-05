@@ -55,15 +55,15 @@ namespace MyLogic
     {
        none, transform, model,scale
     }
-    
+
 
     public class Main
     {
-        public object[] log = new object[] { new rand() }; 
+        public object[] log = new object[] { new rand() };
         public object[] log1 = new object[] { new randscale() };
         public GameObject[] gameObjects;
         public string level = "1";
-       public void main()
+        public void main()
         {
             Atribute a1 = new Atribute(log, "cube");
             Atribute a2 = new Atribute(log1, "cube1");
@@ -110,10 +110,10 @@ namespace MyLogic
                 r.Update();
             }
         }
-        public Vector4 OutPut()
+        public Vector4 OutPut(int i)
         {
             Vector4 v4 = new Vector4(new float[] { 0, 0, 0, 0 });
-            object b = gameObjects[0].a.atr[0];
+            object b = gameObjects[i].a.atr[0];
             object a = new rand();
             if (b.GetType() == a.GetType())
             {
@@ -122,10 +122,11 @@ namespace MyLogic
             }
             return v4;
         }
-        public Vector4 OutPutscale()
+        //движок слушает размер
+        public Vector4 OutPutscale(int i)
         {
             Vector4 v4 = new Vector4(new float[] { 1, 1, 1, 1 });
-            object b = gameObjects[1].a.atr[0];
+            object b = gameObjects[i].a.atr[0];
             object a = new randscale();
             if (b.GetType() == a.GetType())
             {

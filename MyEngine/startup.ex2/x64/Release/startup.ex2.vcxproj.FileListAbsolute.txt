@@ -1,0 +1,4 @@
+D:\2new\startup.ex2\x64\Release\startupex2.MyForm.resources
+D:\2new\startup.ex2\x64\Release\startup.ex2.vcxproj.GenerateResource.cache
+D:\2new\startup.ex2\x64\Release\startup.ex2.exe
+D:\2new\startup.ex2\x64\Release\startup.ex2.vcxproj.AssemblyReference.cache
